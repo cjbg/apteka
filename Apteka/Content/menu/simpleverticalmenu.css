@@ -1,0 +1,52 @@
+﻿    .vmenu {
+        width: 210px;
+        margin: 5px auto;
+    }
+
+    .vmenu-section {
+        height: 27px;
+        padding-top: 3px;
+        padding-left: 10px;
+        border: 1px solid #112E40;
+        background: url("menu-bg.jpg") repeat scroll 0 0 transparent;
+        color: #CCC;
+    }
+
+    ul.vmenu-list {
+        padding: 1px 1px;
+        position: relative;
+        margin: 0;
+        text-align: left;
+    }
+
+    ul.vmenu-list li {
+        display: block;
+        list-style: none;
+    }
+
+    ul.vmenu-list li a {
+        display: block;
+        text-decoration: none;
+        line-height: 2em;
+        background-color: transparent;
+        color: #022902;
+        padding-left: 5px;
+        font-size: 11px;
+    }
+
+    ul.vmenu-list li a:hover {
+        background-color: #F5F5F5;
+        font-weight: bold;
+    }
+
+    ul.vmenu-list li a.selected {
+        background: #E6E6E6;
+    }
+
+    .active {
+        display: block;
+    }
+
+    .inactive {
+        display: none;
+    }

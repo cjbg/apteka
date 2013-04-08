@@ -1,0 +1,16 @@
+﻿@model IList<Apteka.Models.SimpleVerticalMenuModel>
+<div class="vmenu">
+    @foreach (var menuItem in Model)
+    {
+        <div class="vmenu-section">@menuItem.Text</div>
+        
+        <div class="@(menuItem.Active ? "active" : "inactive")">
+            <ul class="vmenu-list">
+                @foreach (var item in menuItem.MenuItems)
+                {
+                    <li>@Html.ActionLink(item.Text, item.Action, item.Controller, null, new { @class = item.Selected ? "selected" : "notselected" })</li>
+                }
+            </ul>
+        </div>
+    }
+</div>

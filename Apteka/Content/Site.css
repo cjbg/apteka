@@ -100,6 +100,14 @@ header h1, #header h1 {
     text-shadow: 1px 1px 2px #111;
 }
 
+#sidebar
+{
+    float: left;
+    margin: 1px;
+    padding: 1px;
+    width: 300px;   
+}
+
 #main 
 {
     clear: both;

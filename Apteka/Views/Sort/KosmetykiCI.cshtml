@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Apteka.t_produkty>
            
 @{
-    ViewBag.Title = "Dieta";
+    ViewBag.Title = "KosmetykiCI";
 }
 @section SideBar {
 <link href="@Url.Content("~/Content/menu/simpleverticalmenu.css")" rel="stylesheet" type="text/css" />
@@ -18,13 +18,13 @@
 <table>
     <tr>
         <th>
-            <li>@Html.ActionLink("Cena", "Dieta", "Sort")</li>
+            <li>@Html.ActionLink("Cena", "Kosmetyki", "Sort")</li>
         </th>
         <th>
-            <li>@Html.ActionLink("Ilość", "DietaI", "Sort")</li>
+            <li>@Html.ActionLink("Ilość", "KosmetykiI", "Sort")</li>
         </th>
         <th>
-            <li>@Html.ActionLink("Cena i ilość", "DietaCI", "Sort")</li>
+            <li>@Html.ActionLink("Cena i ilość", "KosmetykiCI", "Sort")</li>
         </th>
     </tr> 
 </table>

@@ -1,13 +1,19 @@
-﻿@model IEnumerable<Apteka.t_produkty>
+﻿<link href="../../Content/menu/simpleverticalmenu.css" rel="stylesheet" />
+<script src="../../Scripts/menu/simpleverticalmenu.js"></script>
+
+@model IEnumerable<Apteka.t_produkty>
            
 @{
-    ViewBag.Title = "Dieta";
+    ViewBag.Title = "Index";
 }
+
 @section SideBar {
 <link href="@Url.Content("~/Content/menu/simpleverticalmenu.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/menu/simpleverticalmenu.js")" type="text/javascript"></script>
 @{ Html.RenderAction("SimpleVerticalMenu", "Home"); }
 }
+
+
 <h2>@ViewBag.Message</h2>
 
 @using (Html.BeginForm()){   
@@ -18,13 +24,13 @@
 <table>
     <tr>
         <th>
-            <li>@Html.ActionLink("Cena", "Dieta", "Sort")</li>
+            <li>@Html.ActionLink("Cena", "Index", "Sort")</li>
         </th>
         <th>
-            <li>@Html.ActionLink("Ilość", "DietaI", "Sort")</li>
+            <li>@Html.ActionLink("Ilość", "IndexI", "Sort")</li>
         </th>
         <th>
-            <li>@Html.ActionLink("Cena i ilość", "DietaCI", "Sort")</li>
+            <li>@Html.ActionLink("Cena i ilość", "IndexCI", "Sort")</li>
         </th>
     </tr> 
 </table>

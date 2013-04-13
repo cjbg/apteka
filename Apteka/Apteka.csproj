@@ -68,6 +68,7 @@
     <Compile Include="Common\MenuItems.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SortController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,6 +226,23 @@
     <Content Include="Views\Home\Kosmetyki.cshtml" />
     <Content Include="Views\Home\Dieta.cshtml" />
     <Content Include="Views\Shared\SimpleVerticalMenu.cshtml" />
+    <Content Include="Views\Home\Producent.cshtml" />
+    <Content Include="Views\Home\Internaz.cshtml" />
+    <Content Include="Views\Sort\Index.cshtml" />
+    <Content Include="Views\Sort\IndexI.cshtml" />
+    <Content Include="Views\Sort\IndexCI.cshtml" />
+    <Content Include="Views\Sort\Kosmetyki.cshtml" />
+    <Content Include="Views\Sort\KosmetykiI.cshtml" />
+    <Content Include="Views\Sort\KosmetykiCI.cshtml" />
+    <Content Include="Views\Sort\Dieta.cshtml" />
+    <Content Include="Views\Sort\DietaI.cshtml" />
+    <Content Include="Views\Sort\DietaCI.cshtml" />
+    <Content Include="Views\Sort\Producent.cshtml" />
+    <Content Include="Views\Sort\ProducentI.cshtml" />
+    <Content Include="Views\Sort\ProducentCI.cshtml" />
+    <Content Include="Views\Sort\Internaz.cshtml" />
+    <Content Include="Views\Sort\InternazI.cshtml" />
+    <Content Include="Views\Sort\InternazCI.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

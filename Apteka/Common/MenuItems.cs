@@ -12,23 +12,19 @@ namespace Apteka.Common
         {
             var menuItems = new List<SimpleVerticalMenuModel>();
 
-            var simpleLoad = new SimpleVerticalMenuModel { Text = "70's Bands" };
+            var simpleLoad = new SimpleVerticalMenuModel { Text = "Wyszukaj według typu leku" };
             simpleLoad.MenuItems = new List<MenuItemModel>
                                           {
-                                              new MenuItemModel{Action = "LedZeppelin", Controller = "List70Bands", Text = "Led Zeppelin"},
-                                              new MenuItemModel{Action = "Index", Controller = "Home", Text = "The Who"},
-                                              new MenuItemModel{Action = "PinkFloyd", Controller = "List70Bands", Text = "Pink Floyd"},
-                                              new MenuItemModel{Action = "LynyrdSkynyrd", Controller = "List70Bands", Text = "Lynyrd Skynyrd"}
+                                              new MenuItemModel{Action = "Index", Controller = "Home", Text = "Wszystkie leki"},
+                                              new MenuItemModel{Action = "Kosmetyki", Controller = "Home", Text = "Kosmetyki"},
+                                              new MenuItemModel{Action = "Dieta", Controller = "Home", Text = "Dieta"}                                              
                                           };
 
-            var inlineEdit = new SimpleVerticalMenuModel { Text = "80's Bands" };
+            var inlineEdit = new SimpleVerticalMenuModel { Text = "Wyszykaj lek po" };
             inlineEdit.MenuItems = new List<MenuItemModel>
                                           {
-                                              new MenuItemModel{Action = "U2", Controller = "List80Bands", Text = "U2"},
-                                              new MenuItemModel{Action = "GunsNRoses", Controller = "List80Bands", Text = "Guns N' Roses"},
-                                              new MenuItemModel{Action = "Metallica", Controller = "List80Bands", Text = "Metallica"},
-                                              new MenuItemModel{Action = "IronMaidens", Controller = "List80Bands", Text = "Iron Maidens"},
-                                              new MenuItemModel{Action = "TheCure", Controller = "List80Bands", Text = "The Cure"}
+                                              new MenuItemModel{Action = "Producent", Controller = "Home", Text = "producencie"},
+                                              new MenuItemModel{Action = "Internaz", Controller = "Home", Text = "nazwie międzynarodowej"}
                                           };
             var formEdit = new SimpleVerticalMenuModel { Text = "90's Bands" };
             formEdit.MenuItems = new List<MenuItemModel>
@@ -37,9 +33,25 @@ namespace Apteka.Common
                                               new MenuItemModel{Action = "PearlJam", Controller = "List90Bands", Text = "Pearl Jam"},
                                               new MenuItemModel{Action = "RedHotChiliPeppers", Controller = "List90Bands", Text = "Red Hot Chili Peppers"}
                                           };
+            var formEdit1 = new SimpleVerticalMenuModel { Text = "90's Bands" };
+            formEdit1.MenuItems = new List<MenuItemModel>
+                                          {
+                                              new MenuItemModel{Action = "Radiohead", Controller = "List90Bands", Text = "Radiohead"},
+                                              new MenuItemModel{Action = "PearlJam", Controller = "List90Bands", Text = "Pearl Jam"},
+                                              new MenuItemModel{Action = "RedHotChiliPeppers", Controller = "List90Bands", Text = "Red Hot Chili Peppers"}
+                                          };
+            var formEdit2 = new SimpleVerticalMenuModel { Text = "90's Bands" };
+            formEdit2.MenuItems = new List<MenuItemModel>
+                                          {
+                                              new MenuItemModel{Action = "Radiohead", Controller = "List90Bands", Text = "Radiohead"},
+                                              new MenuItemModel{Action = "PearlJam", Controller = "List90Bands", Text = "Pearl Jam"},
+                                              new MenuItemModel{Action = "RedHotChiliPeppers", Controller = "List90Bands", Text = "Red Hot Chili Peppers"}
+                                          };
             menuItems.Add(simpleLoad);
             menuItems.Add(inlineEdit);
             menuItems.Add(formEdit);
+            menuItems.Add(formEdit1);
+            menuItems.Add(formEdit2);
             return menuItems;
         }
     }

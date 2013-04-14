@@ -21,16 +21,11 @@
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
                     @if (Request.IsAuthenticated)
                     {
-                         
+                        /*  */
                         if (Session["Admin"].Equals("Admin"))
                          {
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Zamowienia", "Zamowienia", "Admin")</li>
                          }
-                        /*if (Response.Cookies.Get(1).Value == "1")
-                        {
-                           <li>Html.ActionLink("About", "About", "Home")</li>
-                        }
-                       */
                     }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>

@@ -18,6 +18,7 @@ namespace Apteka
         public int user_id { get; set; }
         public string lek_data { get; set; }
         public int sklep_id { get; set; }
+        public string status { get; set; }
     
         public virtual t_sklepy t_sklepy { get; set; }
         public virtual t_users t_users { get; set; }

@@ -66,7 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\MenuItems.cs" />
+    <Compile Include="Common\Status.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SortController.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,6 +245,8 @@
     <Content Include="Views\Sort\Internaz.cshtml" />
     <Content Include="Views\Sort\InternazI.cshtml" />
     <Content Include="Views\Sort\InternazCI.cshtml" />
+    <Content Include="Views\Admin\Zamowienia.cshtml" />
+    <Content Include="Views\Admin\ZmianaStatusu.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

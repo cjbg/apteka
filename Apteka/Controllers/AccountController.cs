@@ -34,7 +34,7 @@ namespace Apteka.Controllers
 
                 if(data.Count() > 0)
                 {
-
+                    // dodać czas życia ciasteczka
                     if (data.First().Admin == true)
                     {
                         Session["Admin"] = "Admin";

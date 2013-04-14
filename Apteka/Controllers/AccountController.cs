@@ -15,6 +15,8 @@ namespace Apteka.Controllers
         //
         // GET: /Account/LogOn
 
+        private db_lekiContext db = new db_lekiContext();
+
         public ActionResult LogOn()
         {
             return View();
@@ -25,9 +27,25 @@ namespace Apteka.Controllers
 
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
-        {
+        {            
             if (ModelState.IsValid)
             {
+                var data = db.t_users.Where(a => a.Login == model.UserName && a.Haslo == model.Password);                
+
+                if(data.Count() > 0)
+                {
+
+                    if (data.First().Admin == true)
+                    {
+                        Session["Admin"] = "Admin";
+                       // Response.Cookies.Add(new HttpCookie("Admin","1"));
+                    }
+                    else
+                    {
+                        Session["Admin"] = "";
+                       // Response.Cookies.Add(new HttpCookie("Admin", "0"));
+                    }
+
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
@@ -40,6 +58,11 @@ namespace Apteka.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                }
                 }
                 else
                 {

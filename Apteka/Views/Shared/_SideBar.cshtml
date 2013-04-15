@@ -1,0 +1,36 @@
+﻿
+<link href="@Url.Content("~/Content/menu/simpleverticalmenu.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/menu/simpleverticalmenu.js")" type="text/javascript"></script>
+
+ <div class="templatemo_sidebar_wrapper float_l">
+    <div class="templatemo_sidebar_top"></div>
+    <div class="templatemo_sidebar">
+                
+        <div class="sidebar_box">
+            
+            <h2>Kategorie</h2>
+            <div class="sidebar_box_content">
+            @{ Html.RenderAction("SimpleVerticalMenu", "Home"); }       
+                </div>
+    
+        </div>
+                
+        <div class="sidebar_box">
+                    
+            <h2>Mega Promocje:</h2>
+                        
+        <div class="sidebar_box_content">
+                        
+                <a href="#"><img src="/Content/themes/base/images/image_3.png" alt="product" width="160" height="120" /></a>
+                            
+                <p>Praesent mi mi, suscipit non aliquam</p>
+                            
+                <div class="discount"><span>30% taniej!</span> | <a href="#">Dowiedz się więcej</a></div>
+                        
+                <div class="cleaner"></div>
+            </div>
+                        
+        </div>      
+                
+    </div> <div class="templatemo_sidebar_bottom"></div> <!-- end of sidebar -->
+</div> <!-- end of templatemo_sidebar_wrapper --> 

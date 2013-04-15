@@ -1,5 +1,5 @@
 ﻿    .vmenu {
-        width: 210px;
+        width: 275px;
         margin: 5px auto;
     }
 
@@ -9,7 +9,7 @@
         padding-left: 10px;
         border: 1px solid #112E40;
         background: url("menu-bg.jpg") repeat scroll 0 0 transparent;
-        color: #CCC;
+        color: #000;
     }
 
     ul.vmenu-list {

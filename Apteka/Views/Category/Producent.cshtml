@@ -1,0 +1,75 @@
+﻿    <link href="../../Content/menu/simpleverticalmenu.css" rel="stylesheet" />
+    <script src="../../Scripts/menu/simpleverticalmenu.js"></script>
+
+    @model IEnumerable<Apteka.t_produkty>
+           
+    @{
+        ViewBag.Title = "Producent";
+    }
+
+
+    <h2>@ViewBag.Message</h2>
+
+    @using (Html.BeginForm()){   
+             <p> Nazwa: @Html.TextBox("SearchString") 
+             <input type="submit" value="Filtruj" /></p>
+            }
+<table>
+    <tr>
+        <th>
+            <li>@Html.ActionLink("Cena", "Producent", "Sort")</li>
+        </th>
+        <th>
+            <li>@Html.ActionLink("Ilość", "ProducentI", "Sort")</li>
+        </th>
+        <th>
+            <li>@Html.ActionLink("Cena i ilość", "ProducentCI", "Sort")</li>
+        </th>
+    </tr> 
+</table>
+
+    <table>
+        <tr>
+            <th>
+                Nazwa
+            </th>
+            <th>
+                Opakowanie
+            </th>
+            <th>
+                Sklep
+            </th>
+            <th>
+                Cena
+            </th>
+            <th>
+                Ilość
+            </th>
+            <th>
+                Producent
+            </th>    
+        </tr>
+
+        @foreach (var item in Model) {    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.t_leki.nazwa_char)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t_leki.opak_char)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t_sklepy.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cena)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ilosc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.t_leki.t_producenci.nazwa_char)
+            </td>                  
+        </tr>    
+    }
+    </table>

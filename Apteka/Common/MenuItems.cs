@@ -15,9 +15,9 @@ namespace Apteka.Common
             var simpleLoad = new SimpleVerticalMenuModel { Text = "Wyszukaj według typu leku" };
             simpleLoad.MenuItems = new List<MenuItemModel>
                                           {
-                                              new MenuItemModel{Action = "Index", Controller = "Home", Text = "Wszystkie leki"},
-                                              new MenuItemModel{Action = "Kosmetyki", Controller = "Home", Text = "Kosmetyki"},
-                                              new MenuItemModel{Action = "Dieta", Controller = "Home", Text = "Dieta"}                                              
+                                              new MenuItemModel{Action = "Index", Controller = "Category", Text = "Wszystkie leki"},
+                                              new MenuItemModel{Action = "Kosmetyki", Controller = "Category", Text = "Kosmetyki"},
+                                              new MenuItemModel{Action = "Dieta", Controller = "Category", Text = "Dieta"}                                              
                                           };
 
             var inlineEdit = new SimpleVerticalMenuModel { Text = "Wyszykaj lek po" };

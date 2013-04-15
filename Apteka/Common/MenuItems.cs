@@ -23,10 +23,10 @@ namespace Apteka.Common
             var inlineEdit = new SimpleVerticalMenuModel { Text = "Wyszykaj lek po" };
             inlineEdit.MenuItems = new List<MenuItemModel>
                                           {
-                                              new MenuItemModel{Action = "Producent", Controller = "Home", Text = "producencie"},
-                                              new MenuItemModel{Action = "Internaz", Controller = "Home", Text = "nazwie międzynarodowej"}
+                                              new MenuItemModel{Action = "Producent", Controller = "Category", Text = "producencie"},
+                                              new MenuItemModel{Action = "Internaz", Controller = "Category", Text = "nazwie międzynarodowej"}
                                           };
-            var formEdit = new SimpleVerticalMenuModel { Text = "90's Bands" };
+            /*var formEdit = new SimpleVerticalMenuModel { Text = "90's Bands" };
             formEdit.MenuItems = new List<MenuItemModel>
                                           {
                                               new MenuItemModel{Action = "Radiohead", Controller = "List90Bands", Text = "Radiohead"},
@@ -46,12 +46,12 @@ namespace Apteka.Common
                                               new MenuItemModel{Action = "Radiohead", Controller = "List90Bands", Text = "Radiohead"},
                                               new MenuItemModel{Action = "PearlJam", Controller = "List90Bands", Text = "Pearl Jam"},
                                               new MenuItemModel{Action = "RedHotChiliPeppers", Controller = "List90Bands", Text = "Red Hot Chili Peppers"}
-                                          };
+                                          };*/
             menuItems.Add(simpleLoad);
             menuItems.Add(inlineEdit);
-            menuItems.Add(formEdit);
-            menuItems.Add(formEdit1);
-            menuItems.Add(formEdit2);
+            //menuItems.Add(formEdit);
+            //menuItems.Add(formEdit1);
+            //menuItems.Add(formEdit2);
             return menuItems;
         }
     }

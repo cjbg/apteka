@@ -7,13 +7,6 @@
     ViewBag.Title = "IndexI";
 }
 
-@section SideBar {
-<link href="@Url.Content("~/Content/menu/simpleverticalmenu.css")" rel="stylesheet" type="text/css" />
-<script src="@Url.Content("~/Scripts/menu/simpleverticalmenu.js")" type="text/javascript"></script>
-@{ Html.RenderAction("SimpleVerticalMenu", "Home"); }
-}
-
-
 <h2>@ViewBag.Message</h2>
 
 @using (Html.BeginForm()){   

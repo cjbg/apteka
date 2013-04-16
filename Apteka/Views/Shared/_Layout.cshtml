@@ -38,10 +38,10 @@
                   
             <ul>
                 <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                <li>@Html.ActionLink("Promocje", "Index", "Home")</li>
-                <li>@Html.ActionLink("FAQ", "Index", "Home")</li>
+                <li>@Html.ActionLink("Promocje", "Index", "Discounts")</li>
+                <li>@Html.ActionLink("FAQ", "Index", "FAQ")</li>
                 <li>@Html.ActionLink("Twoje Konto", "Index", "Home")</li>
-                <li>@Html.ActionLink("Regulamin", "Index", "Home")</li>
+                <li>@Html.ActionLink("Regulamin", "Index", "Rules")</li>
                 <li>@Html.ActionLink("Kontakt", "About", "Home")</li>
                     @if (Request.IsAuthenticated)
                     {
@@ -54,26 +54,7 @@
             </ul>    	
         
         </div> <!-- end of templatemo_menu -->
-        <!-- <header>
-            <div id="title">
-                <h1>Aptegro</h1>
-            </div>
-       
-            <nav>
-                <ul id="menu">
-                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        /*  */
-                        if (Session["Admin"].Equals("Admin"))
-                         {
-                            <li>@Html.ActionLink("Zamowienia", "Zamowienia", "Admin")</li>
-                         }
-                    }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
-            </nav>
-        </header> -->
+
         <div id="templatemo_content_wrapper">      
         @Html.Partial("_SideBar") 
 

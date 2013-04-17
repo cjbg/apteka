@@ -1,0 +1,35 @@
+﻿@model Apteka.t_produkty
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>t_produkty</legend>
+
+    <div class="display-label">cena</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cena)
+    </div>
+
+    <div class="display-label">t_sklepy</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.t_sklepy.Nazwa)
+    </div>
+
+    <div class="display-label">t_leki</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.t_leki.nazwa_char)
+    </div>
+
+    <div class="display-label">ilosc</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ilosc)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

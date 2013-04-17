@@ -1,0 +1,49 @@
+﻿@model Apteka.t_produkty
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>t_produkty</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.cena)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.cena)
+            @Html.ValidationMessageFor(model => model.cena)
+        </div>        
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lek_id, "t_leki")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("lek_id", String.Empty)
+            @Html.ValidationMessageFor(model => model.lek_id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ilosc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ilosc)
+            @Html.ValidationMessageFor(model => model.ilosc)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

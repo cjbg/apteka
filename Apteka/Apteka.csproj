@@ -73,6 +73,7 @@
     <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\FAQController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProduktyController.cs" />
     <Compile Include="Controllers\RulesController.cs" />
     <Compile Include="Controllers\SortController.cs" />
     <Compile Include="Global.asax.cs">
@@ -268,6 +269,11 @@
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Shared\_Product.cshtml" />
     <Content Include="Views\Account\ShopRegister.cshtml" />
+    <Content Include="Views\Produkty\Index.cshtml" />
+    <Content Include="Views\Produkty\Details.cshtml" />
+    <Content Include="Views\Produkty\Create.cshtml" />
+    <Content Include="Views\Produkty\Edit.cshtml" />
+    <Content Include="Views\Produkty\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

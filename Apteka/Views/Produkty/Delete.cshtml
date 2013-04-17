@@ -1,0 +1,38 @@
+﻿@model Apteka.t_produkty
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>t_produkty</legend>
+
+    <div class="display-label">cena</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cena)
+    </div>
+
+    <div class="display-label">t_sklepy</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.t_sklepy.Nazwa)
+    </div>
+
+    <div class="display-label">t_leki</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.t_leki.nazwa_char)
+    </div>
+
+    <div class="display-label">ilosc</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ilosc)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

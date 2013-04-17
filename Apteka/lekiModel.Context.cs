@@ -37,5 +37,6 @@ namespace Apteka
         public DbSet<t_syno> t_syno { get; set; }
         public DbSet<t_users> t_users { get; set; }
         public DbSet<t_zamowienia> t_zamowienia { get; set; }
+        public DbSet<t_CartItems> t_CartItems { get; set; }
     }
 }

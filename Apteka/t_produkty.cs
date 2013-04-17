@@ -14,6 +14,11 @@ namespace Apteka
     
     public partial class t_produkty
     {
+        public t_produkty()
+        {
+            this.t_CartItems = new HashSet<t_CartItems>();
+        }
+    
         public int Id { get; set; }
         public decimal cena { get; set; }
         public int sklep_id { get; set; }
@@ -22,5 +27,6 @@ namespace Apteka
     
         public virtual t_sklepy t_sklepy { get; set; }
         public virtual t_leki t_leki { get; set; }
+        public virtual ICollection<t_CartItems> t_CartItems { get; set; }
     }
 }

@@ -21,7 +21,17 @@ namespace Apteka.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var cart = Apteka.Logic.ShoppingCart.GetCart(this.HttpContext);
+
+            // Set up our ViewModel
+            var viewModel = new Apteka.ViewModels.ShoppingCartViewModel
+            {
+                CartItems = cart.GetCartItems(),
+                CartTotal = cart.GetTotal(),
+                CartTotalNumber = cart.GetCount()
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult About()

@@ -2,5 +2,5 @@
     ViewBag.Title = "_ShopingCart";
 }
 
-<h3>Koszyk zakupów</h3>
-<p>Wszystkich: <span>28 produktów</span> w koszyku</p>
+<h3>@Html.ActionLink("Koszyk zakupów", "Index", "ShoppingCart")</h3>
+<p>Wszystkich: <span>@Model.CartTotalNumber produktów</span> w koszyku</p>

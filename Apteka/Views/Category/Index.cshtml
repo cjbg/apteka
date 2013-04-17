@@ -38,7 +38,19 @@
         </th>
         <th>
             Ilość
-        </th>        
+        </th>
+        @if (ViewBag.ActionName == "Producent")
+        {
+        <th>
+            Producent
+        </th>                
+        }
+        @if (ViewBag.ActionName == "Internaz")
+        {
+        <th>
+            Nazwa międzynarodowa
+        </th>                
+        }        
     </tr>
 
     @foreach (var item in Model) {    
@@ -57,7 +69,19 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ilosc)
+        </td>
+        @if (ViewBag.ActionName == "Producent")
+        {
+        <td>
+            @Html.DisplayFor(modelItem => item.t_leki.t_producenci.nazwa_char)
         </td>                
+        }
+        @if (ViewBag.ActionName == "Internaz")
+        {
+        <td>
+            @Html.DisplayFor(modelItem => item.t_leki.t_informacje.t_inter.nazwa_char)
+        </td>                
+        }
     </tr>    
 }
 </table>

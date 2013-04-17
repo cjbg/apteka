@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Apteka.Models;
+using System.Data;
+using System.Data.Entity;
 
 namespace Apteka.Controllers
 {
@@ -96,17 +98,98 @@ namespace Apteka.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(t_users model)
         {
             if (ModelState.IsValid)
             {
+                int id=0;
+                var usr = db.t_users;
+
+                foreach (var a in usr)
+                {
+                    id = a.Id;
+                }
+                
+                model.Id = id++;
+                model.Admin = false;
+
+                db.t_users.Add(model);
+                db.SaveChanges();
+                
+                    Session["Admin"] = "";
+                    // Response.Cookies.Add(new HttpCookie("Admin", "0"));                
+
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                Membership.CreateUser(model.Login, model.Haslo, model.email, null, null, true, null, out createStatus);
+
+                
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    FormsAuthentication.SetAuthCookie(model.Login, false /* createPersistentCookie */);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        public ActionResult ShopRegister()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+
+        [HttpPost]
+        public ActionResult ShopRegister(t_sklepy model)
+        {
+            if (ModelState.IsValid)
+            {
+                int id = 0;
+                var usr = db.t_users;
+
+                foreach (var a in usr)
+                {
+                    id = a.Id;
+                }
+
+                model.t_users.Id = id++;
+
+                var skl = db.t_sklepy;
+
+                foreach (var a in skl)
+                {
+                    id = a.Id;
+                }
+
+                model.Id = id++;
+
+                model.t_users.Admin = true;
+
+                db.t_users.Add(model.t_users);
+                db.t_sklepy.Add(model);
+                db.SaveChanges();
+                
+                    Session["Admin"] = "Admin";
+                    // Response.Cookies.Add(new HttpCookie("Admin","1"));               
+
+                // Attempt to register the user
+                MembershipCreateStatus createStatus;
+                Membership.CreateUser(model.t_users.Login, model.t_users.Haslo, model.t_users.email, null, null, true, null, out createStatus);
+
+
+
+                if (createStatus == MembershipCreateStatus.Success)
+                {
+                    FormsAuthentication.SetAuthCookie(model.t_users.Login, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
                 else

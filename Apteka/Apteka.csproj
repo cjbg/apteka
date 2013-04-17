@@ -267,6 +267,7 @@
     <Content Include="Views\FAQ\Index.cshtml" />
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Shared\_Product.cshtml" />
+    <Content Include="Views\Account\ShopRegister.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

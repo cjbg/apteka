@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "_ShopingCart";
+
+    var shopingCart = Apteka.Logic.ShoppingCart.GetCart(Context);
 }
 
 <h3>@Html.ActionLink("Koszyk zakupów", "Index", "ShoppingCart")</h3>
-<p>Wszystkich: <span>@Model.CartTotalNumber produktów</span> w koszyku</p>
+<p>Wszystkich: <span><b>@shopingCart.GetCount()</b> produktów</span> w koszyku</p>

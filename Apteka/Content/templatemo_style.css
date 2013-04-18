@@ -43,6 +43,21 @@ section {
     display: block;
 }
 
+#shopping_cart_box a:link, #logindisplay a:link {
+    color: white;
+    text-decoration: underline;
+}
+
+#shopping_cart_box a:visited, #logindisplay a:visited {
+    color: white;
+    text-decoration: underline;
+}
+
+#shopping_cart_box a:hover, #logindisplay a:hover {
+    color: white;
+    text-decoration: none;
+}
+
 /* HEADINGS   
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {

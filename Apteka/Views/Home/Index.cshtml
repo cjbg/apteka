@@ -1,4 +1,4 @@
-﻿
+﻿@model Apteka.ViewModels.ShoppingCartViewModel
 <link href="../../Content/menu/simpleverticalmenu.css" rel="stylesheet" />
 <script src="../../Scripts/menu/simpleverticalmenu.js"></script>
            
@@ -12,44 +12,49 @@
                 </div>
                 }
 
-                	<h3>Oferta specjalna</h3>
+<h3>Ostatnio dodane</h3>
+<div class="product_box margin_r20">
+    @if (Model.Products.ToArray().Count() > 0)
+    {
+        <a href="#"><img src="/Content/themes/base/images/image_2.png" alt="" width="220" height="165" /></a>
+        <h3>@Model.Products.ToArray()[0].t_leki.nazwa_char</h3>
+        <p class="price">Cena: <span>@Model.Products.ToArray()[0].cena PLN</span></p>
+        @Html.ActionLink("Szczegóły", "Details", "Produkty", new { id = Model.Products.ToArray()[0].Id }, new { @class = "detail" }) @Html.ActionLink("Dodaj do koszyka", "AddToCart", "ShoppingCart", new { id = Model.Products.ToArray()[0].Id, returnUrl = Request.Url }, new { @class = "addtocard" })
+    }
+    <div class="cleaner"></div>
+</div>
 
-                    <div class="product_box margin_r20">
-            	        <!--TODO: zmienic na prawdziwy model-->
-                        @Html.Partial("_Product")
-                        
-                        <div class="cleaner"></div>
-                    </div>
-                    
-			        <div class="product_box">
-                    
-                    	<a href="#"><img src="/Content/themes/base/images/image_3.png" alt="Red Bell" width="220" height="165" /></a>
-       			        <h3>Aliquam sollicitudin</h3>
-                        <p class="price">Cena: <span>9 PLN</span></p>
-                        <a href="#" class="detail">Szczegóły</a><a href="#" class="addtocard">Dodaj do koszyka</a>
-                        
-                        <div class="cleaner"></div>
-                    </div>
+<div class="product_box">
+    @if (Model.Products.ToArray().Count() > 1)
+    {                
+        <a href="#"><img src="/Content/themes/base/images/image_3.png" alt="Red Bell" width="220" height="165" /></a>
+        <h3>@Model.Products.ToArray()[1].t_leki.nazwa_char</h3>
+        <p class="price">Cena: <span>@Model.Products.ToArray()[1].cena PLN</span></p>
+        @Html.ActionLink("Szczegóły", "Details", "Produkty", new { id = Model.Products.ToArray()[1].Id }, new { @class = "detail" }) @Html.ActionLink("Dodaj do koszyka", "AddToCart", "ShoppingCart", new { id = Model.Products.ToArray()[1].Id, returnUrl = Request.Url }, new { @class = "addtocard" })
+    }                    
+    <div class="cleaner"></div>
+</div>
                     
                     
-                    <div class="product_box margin_r20">
-            	
-                		<a href="#" target="_parent"><img src="/Content/themes/base/images/image_4.png" alt="Christmas Gift" width="220" height="165" /></a>
-                        <h3>Vestibulum urna ipsum</h3>
-                      	<p class="price">Cena: <span>10 PLN</span></p>
-                        <a href="#" class="detail">Szczegóły</a><a href="#" class="addtocard">Dodaj do koszyka</a>
-                        
-                        <div class="cleaner"></div>
-                    </div>
+<div class="product_box margin_r20">
+    @if (Model.Products.ToArray().Count() > 2)
+    {        	
+        <a href="#" target="_parent"><img src="/Content/themes/base/images/image_4.png" alt="Christmas Gift" width="220" height="165" /></a>
+        <h3>@Model.Products.ToArray()[2].t_leki.nazwa_char</h3>
+        <p class="price">Cena: <span>@Model.Products.ToArray()[2].cena PLN</span></p>
+        @Html.ActionLink("Szczegóły", "Details", "Produkty", new { id = Model.Products.ToArray()[2].Id }, new { @class = "detail" }) @Html.ActionLink("Dodaj do koszyka", "AddToCart", "ShoppingCart", new { id = Model.Products.ToArray()[2].Id, returnUrl = Request.Url }, new { @class = "addtocard" })
+    }                   
+    <div class="cleaner"></div>
+</div>
                     
-      				<div class="product_box">
-                    
-                    	<a href="#" target="_parent"><img src="/Content/themes/base/images/image_1.png" alt="Christmas Bell" width="220" height="165" /></a>
-       					<h3>Aliquam sollicitudin</h3>
-                        <p class="price">Cena: <span>10 PLN</span></p>
-                        <a href="#" class="detail">Szczegóły</a><a href="#" class="addtocard">Dodaj do koszyka</a>
-                        
-                        <div class="cleaner"></div>
-                    </div>
-                    
-                  <div class="cleaner"></div>
+<div class="product_box">
+    @if (Model.Products.ToArray().Count() > 3)
+    {
+        <a href="#" target="_parent"><img src="/Content/themes/base/images/image_1.png" alt="Christmas Bell" width="220" height="165" /></a>
+        <h3>@Model.Products.ToArray()[3].t_leki.nazwa_char</h3>
+        <p class="price">Cena: <span>@Model.Products.ToArray()[3].cena PLN</span></p>
+        @Html.ActionLink("Szczegóły", "Details", "Produkty", new { id = Model.Products.ToArray()[3].Id }, new { @class = "detail" }) @Html.ActionLink("Dodaj do koszyka", "AddToCart", "ShoppingCart", new { id = Model.Products.ToArray()[3].Id, returnUrl = Request.Url }, new { @class = "addtocard" })
+    }                    
+    <div class="cleaner"></div>
+</div>
+<div class="cleaner"></div>

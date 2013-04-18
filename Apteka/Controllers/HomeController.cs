@@ -23,12 +23,15 @@ namespace Apteka.Controllers
         {
             var cart = Apteka.Logic.ShoppingCart.GetCart(this.HttpContext);
 
+            var produktyTop4 = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).OrderBy(x=>x.Id).ToList().Take(4);
+
             // Set up our ViewModel
             var viewModel = new Apteka.ViewModels.ShoppingCartViewModel
             {
                 CartItems = cart.GetCartItems(),
                 CartTotal = cart.GetTotal(),
-                CartTotalNumber = cart.GetCount()
+                CartTotalNumber = cart.GetCount(),
+                Products = produktyTop4
             };
 
             return View(viewModel);

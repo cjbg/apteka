@@ -104,7 +104,6 @@ namespace Apteka.Logic
             // Return 0 if all entries are null
             return count ?? 0;
         }
-        //ToDo: zmienić na poprawne obliczanie sumy!!!
         public decimal GetTotal()
         {
             // Multiply album price by count of that album to get 

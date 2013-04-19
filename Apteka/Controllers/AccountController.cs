@@ -8,6 +8,8 @@ using System.Web.Security;
 using Apteka.Models;
 using System.Data;
 using System.Data.Entity;
+using System.Net.Mail;
+using System.Net;
 
 namespace Apteka.Controllers
 {
@@ -32,46 +34,49 @@ namespace Apteka.Controllers
         {            
             if (ModelState.IsValid)
             {
-                var data = db.t_users.Where(a => a.Login == model.UserName && a.Haslo == model.Password);                
+                var data = db.t_users.Where(a => a.Login == model.UserName && a.Haslo == model.Password);
 
-                if(data.Count() > 0)
+                if (data.First().IsValid.Equals("1"))
                 {
-                    // dodać czas życia ciasteczka
-                    if (data.First().Admin == true)
+                    if (data.Count() > 0)
                     {
-                        Session["Admin"] = "Admin";
-                       // Response.Cookies.Add(new HttpCookie("Admin","1"));
+                        // dodać czas życia ciasteczka
+                        if (data.First().Admin == true)
+                        {
+                            Session["Admin"] = "Admin";
+                            // Response.Cookies.Add(new HttpCookie("Admin","1"));
+                        }
+                        else
+                        {
+                            Session["Admin"] = "";
+                            // Response.Cookies.Add(new HttpCookie("Admin", "0"));
+                        }
+
+                        if (Membership.ValidateUser(model.UserName, model.Password))
+                        {
+                            FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                            if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                                && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                            {
+                                return Redirect(returnUrl);
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                        }
                     }
                     else
                     {
-                        Session["Admin"] = "";
-                       // Response.Cookies.Add(new HttpCookie("Admin", "0"));
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
                     }
-
-                if (Membership.ValidateUser(model.UserName, model.Password))
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
-
+            ModelState.AddModelError("", "Proszę potwierdzić rejestrację");
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -100,34 +105,80 @@ namespace Apteka.Controllers
         [HttpPost]
         public ActionResult Register(t_users model)
         {
-            if (ModelState.IsValid)
+            int id = 0;
+            var usr = db.t_users;
+
+            foreach (var a in usr)
             {
-                int id=0;
-                var usr = db.t_users;
+                id = a.Id;
+            }
 
-                foreach (var a in usr)
-                {
-                    id = a.Id;
-                }
-                
-                model.Id = id++;
-                model.Admin = false;
+            model.Id = id++;
+            model.Admin = false;
 
-                db.t_users.Add(model);
-                db.SaveChanges();
-                
-                    Session["Admin"] = "";
-                    // Response.Cookies.Add(new HttpCookie("Admin", "0"));                
+           
 
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
+            var random = new Random();
+            var result = new string(
+                Enumerable.Repeat(chars, 14)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+
+
+            model.IsValid = result;
+            //email
+
+            MailMessage mail = new MailMessage();
+            NetworkCredential basicCredential =
+            new NetworkCredential("aptegropl", "1q2w3e4r%T"); 
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("aptegropl@gmail.com");           
+            mail.To.Add(model.email);
+            mail.Subject = "Registration confirmation";
+            mail.IsBodyHtml = true;
+            mail.Body = "Confirmation <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString="+ result+"\">Confirm registration by clicking this link</a> ";
+
+            SmtpServer.Host = "smtp.gmail.com";
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = basicCredential;
+            SmtpServer.Send(mail);
+
+            db.t_users.Add(model);
+            db.SaveChanges();                
+
+            
+            return View(model);
+        }
+
+        public ActionResult RegisterConfirmation(string searchString)
+        {
+            var asd = db.t_users.Where(a => a.IsValid == searchString);
+
+            if (asd.Count() > 0)
+            {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.Login, model.Haslo, model.email, null, null, true, null, out createStatus);
+                Membership.CreateUser(asd.First().Login, asd.First().Haslo, asd.First().email, null, null, true, null, out createStatus);
 
-                
+                if (asd.First().Admin)
+                {
+
+                    Session["Admin"] = "";
+                }
+                else
+                {
+                    Session["Admin"] = "Admin";
+                }
+
+                asd.First().IsValid = "1";
+                                              
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Login, false /* createPersistentCookie */);
+                    FormsAuthentication.SetAuthCookie(asd.First().Login, false /* createPersistentCookie */);
+                    db.Entry(asd.First()).State = EntityState.Modified;
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -135,9 +186,8 @@ namespace Apteka.Controllers
                     ModelState.AddModelError("", ErrorCodeToString(createStatus));
                 }
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+                return View();
+            
         }
 
         public ActionResult ShopRegister()
@@ -174,31 +224,37 @@ namespace Apteka.Controllers
 
                 model.t_users.Admin = true;
 
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
+                var random = new Random();
+                var result = new string(
+                    Enumerable.Repeat(chars, 14)
+                              .Select(s => s[random.Next(s.Length)])
+                              .ToArray());
+
+
+                model.t_users.IsValid = result;
+                //email
+
+                MailMessage mail = new MailMessage();
+                NetworkCredential basicCredential =
+                new NetworkCredential("aptegropl", "1q2w3e4r%T");
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("aptegropl@gmail.com");
+                mail.To.Add("kuba3n@wp.pl");
+                mail.Subject = "Registration confirmation";
+                mail.IsBodyHtml = true;
+                mail.Body = "Confirmation <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Confirm registration by clicking this link</a> ";
+
+                SmtpServer.Host = "smtp.gmail.com";
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = basicCredential;
+                SmtpServer.Send(mail);
+
                 db.t_users.Add(model.t_users);
                 db.t_sklepy.Add(model);
                 db.SaveChanges();
-                
-                    Session["Admin"] = "Admin";
-                    // Response.Cookies.Add(new HttpCookie("Admin","1"));               
 
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.t_users.Login, model.t_users.Haslo, model.t_users.email, null, null, true, null, out createStatus);
-
-
-
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(model.t_users.Login, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

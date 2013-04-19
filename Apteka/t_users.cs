@@ -30,6 +30,7 @@ namespace Apteka
         public string Miasto { get; set; }
         public string KodPocztowy { get; set; }
         public bool Admin { get; set; }
+        public string IsValid { get; set; }
     
         public virtual ICollection<t_sklepy> t_sklepy { get; set; }
         public virtual ICollection<t_zamowienia> t_zamowienia { get; set; }

@@ -145,10 +145,10 @@ namespace Apteka.Controllers
             SmtpServer.Send(mail);
 
             db.t_users.Add(model);
-            db.SaveChanges();                
+            db.SaveChanges();
 
-            
-            return View(model);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult RegisterConfirmation(string searchString)
@@ -255,7 +255,7 @@ namespace Apteka.Controllers
                 db.SaveChanges();
 
             }
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         //

@@ -36,9 +36,9 @@ namespace Apteka.Controllers
             {
                 var data = db.t_users.Where(a => a.Login == model.UserName && a.Haslo == model.Password);
 
-                if (data.First().IsValid.Equals("1"))
+                if (data.Count() > 0)
                 {
-                    if (data.Count() > 0)
+                    if (data.First().IsValid.Equals("1"))
                     {
                         // dodać czas życia ciasteczka
                         if (data.First().Admin == true)
@@ -240,7 +240,7 @@ namespace Apteka.Controllers
                 new NetworkCredential("aptegropl", "1q2w3e4r%T");
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
                 mail.From = new MailAddress("aptegropl@gmail.com");
-                mail.To.Add("kuba3n@wp.pl");
+                mail.To.Add(model.t_users.email);
                 mail.Subject = "Registration confirmation";
                 mail.IsBodyHtml = true;
                 mail.Body = "Confirmation <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Confirm registration by clicking this link</a> ";

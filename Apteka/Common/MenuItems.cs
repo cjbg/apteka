@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web;
 using Apteka.Models;
 
+
 namespace Apteka.Common
 {
     public class MenuItems
     {
+        public static bool logedUser = false;
+
         public static List<SimpleVerticalMenuModel> Get()
         {
             var menuItems = new List<SimpleVerticalMenuModel>();
@@ -26,14 +29,21 @@ namespace Apteka.Common
                                               new MenuItemModel{Action = "Producent", Controller = "Category", Text = "producencie"},
                                               new MenuItemModel{Action = "Internaz", Controller = "Category", Text = "nazwie międzynarodowej"}
                                           };
-            /*var formEdit = new SimpleVerticalMenuModel { Text = "90's Bands" };
-            formEdit.MenuItems = new List<MenuItemModel>
+            menuItems.Add(simpleLoad);
+            menuItems.Add(inlineEdit);
+
+            if (logedUser == true)
+            {
+                var formEdit = new SimpleVerticalMenuModel { Text = "Twoje konto" };
+                formEdit.MenuItems = new List<MenuItemModel>
                                           {
-                                              new MenuItemModel{Action = "Radiohead", Controller = "List90Bands", Text = "Radiohead"},
+                                              new MenuItemModel{Action = "ChangePassword", Controller = "Account", Text = "Zmień hasło"},
                                               new MenuItemModel{Action = "PearlJam", Controller = "List90Bands", Text = "Pearl Jam"},
                                               new MenuItemModel{Action = "RedHotChiliPeppers", Controller = "List90Bands", Text = "Red Hot Chili Peppers"}
                                           };
-            var formEdit1 = new SimpleVerticalMenuModel { Text = "90's Bands" };
+                menuItems.Add(formEdit);
+            }
+            /*var formEdit1 = new SimpleVerticalMenuModel { Text = "90's Bands" };
             formEdit1.MenuItems = new List<MenuItemModel>
                                           {
                                               new MenuItemModel{Action = "Radiohead", Controller = "List90Bands", Text = "Radiohead"},
@@ -47,9 +57,8 @@ namespace Apteka.Common
                                               new MenuItemModel{Action = "PearlJam", Controller = "List90Bands", Text = "Pearl Jam"},
                                               new MenuItemModel{Action = "RedHotChiliPeppers", Controller = "List90Bands", Text = "Red Hot Chili Peppers"}
                                           };*/
-            menuItems.Add(simpleLoad);
-            menuItems.Add(inlineEdit);
-            //menuItems.Add(formEdit);
+                                        
+            
             //menuItems.Add(formEdit1);
             //menuItems.Add(formEdit2);
             return menuItems;

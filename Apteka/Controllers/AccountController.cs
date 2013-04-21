@@ -10,6 +10,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Net.Mail;
 using System.Net;
+using Apteka.Common;
 
 namespace Apteka.Controllers
 {
@@ -52,6 +53,8 @@ namespace Apteka.Controllers
                             // Response.Cookies.Add(new HttpCookie("Admin", "0"));
                         }
 
+                        MenuItems.logedUser = true;
+
                         if (Membership.ValidateUser(model.UserName, model.Password))
                         {
                             FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
@@ -87,6 +90,8 @@ namespace Apteka.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
+
+            MenuItems.logedUser = false;
 
             return RedirectToAction("Index", "Home");
         }
@@ -307,6 +312,12 @@ namespace Apteka.Controllers
 
                 if (changePasswordSucceeded)
                 {
+                    var usr = db.t_users.First(a => a.Login == User.Identity.Name);
+                    usr.Haslo = model.NewPassword;
+
+                    db.Entry(usr).State = EntityState.Modified;
+                    db.SaveChanges();
+
                     return RedirectToAction("ChangePasswordSuccess");
                 }
                 else

@@ -115,40 +115,47 @@ namespace Apteka.Controllers
 
             model.Id = id++;
             model.Admin = false;
+            
+            var mem = Membership.FindUsersByName(model.Login);
 
-           
-
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
-            var random = new Random();
-            var result = new string(
-                Enumerable.Repeat(chars, 14)
-                          .Select(s => s[random.Next(s.Length)])
-                          .ToArray());
+            if (mem.Count == 0)
+            {
 
 
-            model.IsValid = result;
-            //email
-
-            MailMessage mail = new MailMessage();
-            NetworkCredential basicCredential =
-            new NetworkCredential("aptegropl", "1q2w3e4r%T"); 
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("aptegropl@gmail.com");           
-            mail.To.Add(model.email);
-            mail.Subject = "Registration confirmation";
-            mail.IsBodyHtml = true;
-            mail.Body = "Confirmation <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString="+ result+"\">Confirm registration by clicking this link</a> ";
-
-            SmtpServer.Host = "smtp.gmail.com";
-            SmtpServer.UseDefaultCredentials = false;
-            SmtpServer.Credentials = basicCredential;
-            SmtpServer.Send(mail);
-
-            db.t_users.Add(model);
-            db.SaveChanges();
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
+                var random = new Random();
+                var result = new string(
+                    Enumerable.Repeat(chars, 14)
+                              .Select(s => s[random.Next(s.Length)])
+                              .ToArray());
 
 
-            return RedirectToAction("Index", "Home");
+                model.IsValid = result;
+                //email
+
+                MailMessage mail = new MailMessage();
+                NetworkCredential basicCredential =
+                new NetworkCredential("aptegropl", "1q2w3e4r%T");
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("aptegropl@gmail.com");
+                mail.To.Add(model.email);
+                mail.Subject = "Registration confirmation";
+                mail.IsBodyHtml = true;
+                mail.Body = "Confirmation <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Confirm registration by clicking this link</a> ";
+
+                SmtpServer.Host = "smtp.gmail.com";
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = basicCredential;
+                SmtpServer.Send(mail);
+
+                db.t_users.Add(model);
+                db.SaveChanges();
+
+
+                return RedirectToAction("Index", "Home");
+            }
+            ModelState.AddModelError("", "Uzytkownik już istnieje");
+            return View(model);
         }
 
         public ActionResult RegisterConfirmation(string searchString)
@@ -224,6 +231,11 @@ namespace Apteka.Controllers
 
                 model.t_users.Admin = true;
 
+                var mem = Membership.FindUsersByName(model.t_users.Login);
+
+                if (mem.Count == 0)
+                {
+
                 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
                 var random = new Random();
                 var result = new string(
@@ -256,6 +268,9 @@ namespace Apteka.Controllers
 
             }
             return RedirectToAction("Index", "Home");
+            }
+            ModelState.AddModelError("", "Uzytkownik już istnieje");
+            return View(model);
         }
 
         //

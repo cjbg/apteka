@@ -32,7 +32,7 @@ namespace Apteka.Controllers
 
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
-        {            
+        {
             if (ModelState.IsValid)
             {
                 var data = db.t_users.Where(a => a.Login == model.UserName && a.Haslo == model.Password);
@@ -55,22 +55,15 @@ namespace Apteka.Controllers
 
                         MenuItems.logedUser = true;
 
-                        if (Membership.ValidateUser(model.UserName, model.Password))
+                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                         {
-                            FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                            if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                                && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                            {
-                                return Redirect(returnUrl);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Home");
-                            }
+                            return Redirect(returnUrl);
                         }
                         else
                         {
-                            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                     else
@@ -120,44 +113,53 @@ namespace Apteka.Controllers
 
             model.Id = id++;
             model.Admin = false;
-            
-            var mem = Membership.FindUsersByName(model.Login);
 
-            if (mem.Count == 0)
+            var mem = db.t_users.Where(a => a.Login == model.Login);
+
+            if (mem.Count() == 0)
             {
+                if (model.Haslo != null && model.Haslo.Length > 7)
+                {
+                    if (model.email.Contains('@'))
+                    {
+
+                        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
+                        var random = new Random();
+                        var result = new string(
+                            Enumerable.Repeat(chars, 14)
+                                      .Select(s => s[random.Next(s.Length)])
+                                      .ToArray());
 
 
-                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
-                var random = new Random();
-                var result = new string(
-                    Enumerable.Repeat(chars, 14)
-                              .Select(s => s[random.Next(s.Length)])
-                              .ToArray());
+                        model.IsValid = result;
+                        //email
+
+                        MailMessage mail = new MailMessage();
+                        NetworkCredential basicCredential =
+                        new NetworkCredential("aptegropl", "1q2w3e4r%T");
+                        SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                        mail.From = new MailAddress("aptegropl@gmail.com");
+                        mail.To.Add(model.email);
+                        mail.Subject = "Potwierdzenie rejestracji";
+                        mail.IsBodyHtml = true;
+                        mail.Body = "Potwierdzenie <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
+
+                        SmtpServer.Host = "smtp.gmail.com";
+                        SmtpServer.UseDefaultCredentials = false;
+                        SmtpServer.Credentials = basicCredential;
+                        SmtpServer.Send(mail);
+
+                        db.t_users.Add(model);
+                        db.SaveChanges();
 
 
-                model.IsValid = result;
-                //email
-
-                MailMessage mail = new MailMessage();
-                NetworkCredential basicCredential =
-                new NetworkCredential("aptegropl", "1q2w3e4r%T");
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-                mail.From = new MailAddress("aptegropl@gmail.com");
-                mail.To.Add(model.email);
-                mail.Subject = "Registration confirmation";
-                mail.IsBodyHtml = true;
-                mail.Body = "Confirmation <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Confirm registration by clicking this link</a> ";
-
-                SmtpServer.Host = "smtp.gmail.com";
-                SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = basicCredential;
-                SmtpServer.Send(mail);
-
-                db.t_users.Add(model);
-                db.SaveChanges();
-
-
-                return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Hasło ma mniej niż 8 znaków");
+                }
             }
             ModelState.AddModelError("", "Uzytkownik już istnieje");
             return View(model);
@@ -169,9 +171,6 @@ namespace Apteka.Controllers
 
             if (asd.Count() > 0)
             {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(asd.First().Login, asd.First().Haslo, asd.First().email, null, null, true, null, out createStatus);
 
                 if (asd.First().Admin)
                 {
@@ -184,22 +183,14 @@ namespace Apteka.Controllers
                 }
 
                 asd.First().IsValid = "1";
-                                              
 
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(asd.First().Login, false /* createPersistentCookie */);
-                    db.Entry(asd.First()).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
+                FormsAuthentication.SetAuthCookie(asd.First().Login, false /* createPersistentCookie */);
+                db.Entry(asd.First()).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
-                return View();
-            
+            return View();
+
         }
 
         public ActionResult ShopRegister()
@@ -236,43 +227,49 @@ namespace Apteka.Controllers
 
                 model.t_users.Admin = true;
 
-                var mem = Membership.FindUsersByName(model.t_users.Login);
+                var mem = db.t_users.Where(a => a.Login == model.t_users.Login);
 
-                if (mem.Count == 0)
+                if (mem.Count() == 0)
                 {
+                    if (model.t_users.Haslo != null && model.t_users.Haslo.Length > 7)
+                    {
+                        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
+                        var random = new Random();
+                        var result = new string(
+                            Enumerable.Repeat(chars, 14)
+                                      .Select(s => s[random.Next(s.Length)])
+                                      .ToArray());
 
-                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
-                var random = new Random();
-                var result = new string(
-                    Enumerable.Repeat(chars, 14)
-                              .Select(s => s[random.Next(s.Length)])
-                              .ToArray());
 
+                        model.t_users.IsValid = result;
+                        //email
 
-                model.t_users.IsValid = result;
-                //email
+                        MailMessage mail = new MailMessage();
+                        NetworkCredential basicCredential =
+                        new NetworkCredential("aptegropl", "1q2w3e4r%T");
+                        SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                        mail.From = new MailAddress("aptegropl@gmail.com");
+                        mail.To.Add(model.t_users.email);
+                        mail.Subject = "Potwierdzenie rejestracji";
+                        mail.IsBodyHtml = true;
+                        mail.Body = "Potwierdzenie <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
 
-                MailMessage mail = new MailMessage();
-                NetworkCredential basicCredential =
-                new NetworkCredential("aptegropl", "1q2w3e4r%T");
-                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-                mail.From = new MailAddress("aptegropl@gmail.com");
-                mail.To.Add(model.t_users.email);
-                mail.Subject = "Registration confirmation";
-                mail.IsBodyHtml = true;
-                mail.Body = "Confirmation <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Confirm registration by clicking this link</a> ";
+                        SmtpServer.Host = "smtp.gmail.com";
+                        SmtpServer.UseDefaultCredentials = false;
+                        SmtpServer.Credentials = basicCredential;
+                        SmtpServer.Send(mail);
 
-                SmtpServer.Host = "smtp.gmail.com";
-                SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = basicCredential;
-                SmtpServer.Send(mail);
+                        db.t_users.Add(model.t_users);
+                        db.t_sklepy.Add(model);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Hasło ma mniej niż 8 znaków");
+                    }
 
-                db.t_users.Add(model.t_users);
-                db.t_sklepy.Add(model);
-                db.SaveChanges();
-
-            }
-            return RedirectToAction("Index", "Home");
+                }
+                return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("", "Uzytkownik już istnieje");
             return View(model);

@@ -10,6 +10,7 @@ namespace Apteka.Common
     public class MenuItems
     {
         public static bool logedUser = false;
+        public static bool logedUserShop = false;
 
         public static List<SimpleVerticalMenuModel> Get()
         {
@@ -38,9 +39,13 @@ namespace Apteka.Common
                 formEdit.MenuItems = new List<MenuItemModel>
                                           {
                                               new MenuItemModel{Action = "ChangePassword", Controller = "Account", Text = "Zmień hasło"},
-                                              new MenuItemModel{Action = "PearlJam", Controller = "List90Bands", Text = "Pearl Jam"},
-                                              new MenuItemModel{Action = "RedHotChiliPeppers", Controller = "List90Bands", Text = "Red Hot Chili Peppers"}
+                                              new MenuItemModel{Action = "EdycjaDanych", Controller = "Account", Text = "Edytuj twoje dane"}                                              
                                           };
+                if(logedUserShop == true)
+                {
+                    MenuItemModel asd = new MenuItemModel{Action = "EdycjaDanychSklepu", Controller = "Account", Text = "Edytuj dane sklepu"};
+                    formEdit.MenuItems.Add(asd);                  
+                }
                 menuItems.Add(formEdit);
             }
             /*var formEdit1 = new SimpleVerticalMenuModel { Text = "90's Bands" };

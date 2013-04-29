@@ -286,6 +286,8 @@
     <Content Include="Views\Produkty\Delete.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Account\RegisterConfirmation.cshtml" />
+    <Content Include="Views\Account\EdycjaDanych.cshtml" />
+    <Content Include="Views\Account\EdycjaDanychSklepu.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -46,6 +46,7 @@ namespace Apteka.Controllers
                         {
                             Session["Admin"] = "Admin";
                             // Response.Cookies.Add(new HttpCookie("Admin","1"));
+                            MenuItems.logedUserShop = true;
                         }
                         else
                         {
@@ -68,11 +69,11 @@ namespace Apteka.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                        ModelState.AddModelError("", "Rejestracja użytkownika nie została potwierdzone poprzez skrzynkę mailową");
                     }
                 }
             }
-            ModelState.AddModelError("", "Proszę potwierdzić rejestrację");
+            ModelState.AddModelError("", "Użytkownik nie istnieje");
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -85,6 +86,7 @@ namespace Apteka.Controllers
             FormsAuthentication.SignOut();
 
             MenuItems.logedUser = false;
+            MenuItems.logedUserShop = false;
 
             return RedirectToAction("Index", "Home");
         }
@@ -333,6 +335,37 @@ namespace Apteka.Controllers
         public ActionResult ChangePasswordSuccess()
         {
             return View();
+        }
+
+        public ActionResult EdycjaDanych()
+        {
+            var asd = db.t_users.First(a => a.Login == User.Identity.Name);
+            return View(asd);
+        }
+
+        [HttpPost]
+        public ActionResult EdycjaDanych(t_users model)
+        {
+            db.Entry(model).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");            
+        }
+
+        public ActionResult EdycjaDanychSklepu()
+        {
+            var asd = db.t_users.First(a => a.Login == User.Identity.Name);
+            var skl = db.t_sklepy.First(a => a.Wlasciciel_id_user == asd.Id);
+            return View(skl);
+        }
+
+        [HttpPost]
+        public ActionResult EdycjaDanychSklepu(t_sklepy model)
+        {
+            db.Entry(model).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
 
         #region Status Codes

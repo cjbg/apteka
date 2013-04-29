@@ -78,6 +78,49 @@ namespace Apteka.Controllers
             return View(model);
         }
 
+        public ActionResult ResetPassword()
+        {            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(t_users model)
+        {
+            var usr = db.t_users.First(a => a.Login == model.Login);
+            if(usr != null)
+            {
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnoprstquywz";
+                var random = new Random();
+                var result = new string(
+                    Enumerable.Repeat(chars, 8)
+                              .Select(s => s[random.Next(s.Length)])
+                              .ToArray());
+                usr.Haslo = result;
+
+                MailMessage mail = new MailMessage();
+                NetworkCredential basicCredential =
+                new NetworkCredential("aptegropl", "1q2w3e4r%T");
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("aptegropl@gmail.com");
+                mail.To.Add(usr.email);
+                mail.Subject = "Zresetowanie hasła";
+                mail.IsBodyHtml = true;
+                mail.Body = "Nowe hasło to " + usr.Haslo.ToString() + ".";
+
+                SmtpServer.Host = "smtp.gmail.com";
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = basicCredential;
+                SmtpServer.Send(mail);
+
+                db.Entry(usr).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Nie ma takiego użytkownika");
+            }
+            return View(model);
+        }
         //
         // GET: /Account/LogOff
 
@@ -298,20 +341,11 @@ namespace Apteka.Controllers
 
                 // ChangePassword will throw an exception rather
                 // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
-                try
-                {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
+                var usr = db.t_users.First(a => a.Login == User.Identity.Name);
 
-                if (changePasswordSucceeded)
+                if (usr.Haslo == model.OldPassword)
                 {
-                    var usr = db.t_users.First(a => a.Login == User.Identity.Name);
+                    
                     usr.Haslo = model.NewPassword;
 
                     db.Entry(usr).State = EntityState.Modified;

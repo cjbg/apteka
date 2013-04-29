@@ -288,6 +288,7 @@
     <Content Include="Views\Account\RegisterConfirmation.cshtml" />
     <Content Include="Views\Account\EdycjaDanych.cshtml" />
     <Content Include="Views\Account\EdycjaDanychSklepu.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

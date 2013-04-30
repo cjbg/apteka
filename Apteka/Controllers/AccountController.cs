@@ -21,9 +21,9 @@ namespace Apteka.Controllers
         // GET: /Account/LogOn
 
         private db_lekiContext db = new db_lekiContext();
-
+        
         public ActionResult LogOn()
-        {
+        {            
             return View();
         }
 
@@ -114,6 +114,8 @@ namespace Apteka.Controllers
 
                 db.Entry(usr).State = EntityState.Modified;
                 db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -187,8 +189,8 @@ namespace Apteka.Controllers
                         mail.To.Add(model.email);
                         mail.Subject = "Potwierdzenie rejestracji";
                         mail.IsBodyHtml = true;
-                        mail.Body = "Potwierdzenie <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
-
+                        mail.Body = "Potwierdzenie <br/> <a href=\"http://"+Request.Url.DnsSafeHost+":"+ Request.Url.Port +"/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
+                        
                         SmtpServer.Host = "smtp.gmail.com";
                         SmtpServer.UseDefaultCredentials = false;
                         SmtpServer.Credentials = basicCredential;
@@ -297,7 +299,7 @@ namespace Apteka.Controllers
                         mail.To.Add(model.t_users.email);
                         mail.Subject = "Potwierdzenie rejestracji";
                         mail.IsBodyHtml = true;
-                        mail.Body = "Potwierdzenie <br/> <a href=\"http://localhost:56533/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
+                        mail.Body = "Potwierdzenie <br/> <a href=\"http://" + Request.Url.DnsSafeHost + ":" + Request.Url.Port + "/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
 
                         SmtpServer.Host = "smtp.gmail.com";
                         SmtpServer.UseDefaultCredentials = false;

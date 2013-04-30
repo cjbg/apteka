@@ -67,7 +67,7 @@ namespace Apteka.Controllers
 
             if (sortModel == null)
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.kosmetyk_bool == true);
+                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.kosmetyk_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
 
                 var synonimy = produkty;
 
@@ -107,7 +107,127 @@ namespace Apteka.Controllers
 
             if (sortModel == null)
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.diet_bool == true);
+                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.diet_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+                var synonimy = produkty;
+
+                List<t_produkty> lista = new List<t_produkty>();
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
+
+                    foreach (var p in synonimy)
+                    {
+                        lista.Add(p);
+                    }
+                    foreach (var p in produkty)
+                    {
+                        lista.Add(p);
+                    }
+                }
+                else
+                {
+                    lista = produkty.ToList();
+                }
+
+                return View("index", lista);
+            }
+            else
+            {
+                return View("index", sortModel);
+            }
+        }
+
+        public ActionResult Dezynfekcyjny(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        {
+            ViewBag.Message = "Dezynfekcyjny";
+            ViewBag.ActionName = "Dezynfekcyjny";
+
+            if (sortModel == null)
+            {
+                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.dezyn_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+                var synonimy = produkty;
+
+                List<t_produkty> lista = new List<t_produkty>();
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
+
+                    foreach (var p in synonimy)
+                    {
+                        lista.Add(p);
+                    }
+                    foreach (var p in produkty)
+                    {
+                        lista.Add(p);
+                    }
+                }
+                else
+                {
+                    lista = produkty.ToList();
+                }
+
+                return View("index", lista);
+            }
+            else
+            {
+                return View("index", sortModel);
+            }
+        }
+
+        public ActionResult Homeopatyczny(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        {
+            ViewBag.Message = "Homeopatyczny";
+            ViewBag.ActionName = "Homeopatyczny";
+
+            if (sortModel == null)
+            {
+                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.homeo_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+                var synonimy = produkty;
+
+                List<t_produkty> lista = new List<t_produkty>();
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
+
+                    foreach (var p in synonimy)
+                    {
+                        lista.Add(p);
+                    }
+                    foreach (var p in produkty)
+                    {
+                        lista.Add(p);
+                    }
+                }
+                else
+                {
+                    lista = produkty.ToList();
+                }
+
+                return View("index", lista);
+            }
+            else
+            {
+                return View("index", sortModel);
+            }
+        }
+
+        public ActionResult Doping(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        {
+            ViewBag.Message = "Środek dopingujący";
+            ViewBag.ActionName = "Doping";
+
+            if (sortModel == null)
+            {
+                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.doping_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
 
                 var synonimy = produkty;
 
@@ -186,6 +306,38 @@ namespace Apteka.Controllers
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     produkty = produkty.Where(a => a.t_leki.t_informacje.t_inter.nazwa_char.Contains(searchString));
+                    foreach (var p in produkty)
+                    {
+                        lista.Add(p);
+                    }
+                }
+                else
+                {
+                    lista = produkty.ToList();
+                }
+
+                return View("index", lista);
+            }
+            else
+            {
+                return View("index", sortModel);
+            }
+        }
+
+        public ActionResult Apteka(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        {
+            ViewBag.Message = "Oferta aptek";
+            ViewBag.ActionName = "Apteka";
+
+            if (sortModel == null)
+            {
+                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
+
+                List<t_produkty> lista = new List<t_produkty>();
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    produkty = produkty.Where(a => a.t_sklepy.Nazwa.Contains(searchString));
                     foreach (var p in produkty)
                     {
                         lista.Add(p);

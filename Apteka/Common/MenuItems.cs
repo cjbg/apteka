@@ -21,14 +21,18 @@ namespace Apteka.Common
                                           {
                                               new MenuItemModel{Action = "Index", Controller = "Category", Text = "Wszystkie leki"},
                                               new MenuItemModel{Action = "Kosmetyki", Controller = "Category", Text = "Kosmetyki"},
-                                              new MenuItemModel{Action = "Dieta", Controller = "Category", Text = "Dieta"}                                              
+                                              new MenuItemModel{Action = "Dieta", Controller = "Category", Text = "Dieta"},                                              
+                                              new MenuItemModel{Action = "Dezynfekcyjny", Controller = "Category", Text = "Dezynfekcyjne"},
+                                              new MenuItemModel{Action = "Homeopatyczny", Controller = "Category", Text = "Homeopatyczne"},
+                                              new MenuItemModel{Action = "Doping", Controller = "Category", Text = "Środek dopingujący"}
                                           };
 
             var inlineEdit = new SimpleVerticalMenuModel { Text = "Wyszykaj lek po" };
             inlineEdit.MenuItems = new List<MenuItemModel>
                                           {
                                               new MenuItemModel{Action = "Producent", Controller = "Category", Text = "producencie"},
-                                              new MenuItemModel{Action = "Internaz", Controller = "Category", Text = "nazwie międzynarodowej"}
+                                              new MenuItemModel{Action = "Internaz", Controller = "Category", Text = "nazwie międzynarodowej"},
+                                              new MenuItemModel{Action = "Apteka", Controller = "Category", Text = "aptece"}
                                           };
             menuItems.Add(simpleLoad);
             menuItems.Add(inlineEdit);

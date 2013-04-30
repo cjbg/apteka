@@ -219,14 +219,16 @@ namespace Apteka.Controllers
             if (asd.Count() > 0)
             {
 
-                if (asd.First().Admin)
+                if (asd.First().Admin == false)
                 {
 
                     Session["Admin"] = "";
+                    MenuItems.logedUser = true;
                 }
                 else
                 {
                     Session["Admin"] = "Admin";
+                    MenuItems.logedUserShop = true;
                 }
 
                 asd.First().IsValid = "1";

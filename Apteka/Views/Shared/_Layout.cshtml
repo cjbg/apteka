@@ -43,16 +43,7 @@
                 <li>@Html.ActionLink("Twoje Konto", "Index", "Home")</li>
                 <li>@Html.ActionLink("Regulamin", "Index", "Rules")</li>
                 <li>@Html.ActionLink("Kontakt", "About", "Home")</li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        /*  */
-                        if (Session["Admin"].Equals("Admin"))
-                        {
-                            <li>@Html.ActionLink("Zamowienia", "Zamowienia", "Admin")</li>
-                            <li>@Html.ActionLink("Produkty", "Index", "Produkty")</li>
-                        }
-
-                    }
+                    
             </ul>    	
         
         </div> <!-- end of templatemo_menu -->

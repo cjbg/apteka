@@ -48,9 +48,20 @@ namespace Apteka.Common
                 if(logedUserShop == true)
                 {
                     MenuItemModel asd = new MenuItemModel{Action = "EdycjaDanychSklepu", Controller = "Account", Text = "Edytuj dane sklepu"};
-                    formEdit.MenuItems.Add(asd);                  
+                    formEdit.MenuItems.Add(asd);
+                    
+                    var formEdit1 = new SimpleVerticalMenuModel { Text = "Twoja apteka" };
+                    formEdit1.MenuItems = new List<MenuItemModel>
+                                          {
+                                              new MenuItemModel{Action = "Zamowienia", Controller = "Admin", Text = "Zamowienia"},
+                                              new MenuItemModel{Action = "Index", Controller = "Produkty", Text = "Produkty"},
+                                              
+                                          };
+                    menuItems.Add(formEdit1);                                  
+                    
                 }
                 menuItems.Add(formEdit);
+                
             }
             /*var formEdit1 = new SimpleVerticalMenuModel { Text = "90's Bands" };
             formEdit1.MenuItems = new List<MenuItemModel>

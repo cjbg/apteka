@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 04/17/2013 19:45:08
+-- Date Created: 05/05/2013 12:14:48
 -- Generated from EDMX file: C:\Users\Andre\Documents\GitHub\apteka\Apteka\leki.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,8 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK__t_CartIte__Produ__59FA5E80]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[t_CartItems] DROP CONSTRAINT [FK__t_CartIte__Produ__59FA5E80];
-GO
-IF OBJECT_ID(N'[dbo].[FK_sub_id_num]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[t_sklad] DROP CONSTRAINT [FK_sub_id_num];
+IF OBJECT_ID(N'[dbo].[FK_t_CartItems_t_produkty]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[t_CartItems] DROP CONSTRAINT [FK_t_CartItems_t_produkty];
 GO
 IF OBJECT_ID(N'[dbo].[FK_t_informacje_t_inter]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_informacje] DROP CONSTRAINT [FK_t_informacje_t_inter];
@@ -55,6 +52,9 @@ IF OBJECT_ID(N'[dbo].[FK_t_zamowienia_t_users]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_t_zamowienia_t_users1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_zamowienia] DROP CONSTRAINT [FK_t_zamowienia_t_users1];
+GO
+IF OBJECT_ID(N'[dbo].[FK_sub_id_num]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[t_sklad] DROP CONSTRAINT [FK_sub_id_num];
 GO
 
 -- --------------------------------------------------
@@ -166,7 +166,7 @@ GO
 -- Creating table 't_produkty'
 CREATE TABLE [dbo].[t_produkty] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [cena] decimal(19,4)  NOT NULL,
+    [cena] decimal(19,2)  NOT NULL,
     [sklep_id] int  NOT NULL,
     [lek_id] int  NOT NULL,
     [ilosc] int  NOT NULL
@@ -192,7 +192,8 @@ GO
 CREATE TABLE [dbo].[t_sklepy] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Nazwa] varchar(255)  NOT NULL,
-    [Wlasciciel_id_user] int  NOT NULL
+    [Wlasciciel_id_user] int  NOT NULL,
+    [NumerKonta] int  NULL
 );
 GO
 
@@ -221,7 +222,10 @@ CREATE TABLE [dbo].[t_users] (
     [Ulica] varchar(255)  NOT NULL,
     [Miasto] varchar(255)  NOT NULL,
     [KodPocztowy] varchar(255)  NOT NULL,
-    [Admin] bit  NOT NULL
+    [Admin] bit  NOT NULL,
+    [IsValid] varchar(14)  NULL,
+    [NumerDomu] int  NULL,
+    [NumerMieszkania] int  NULL
 );
 GO
 

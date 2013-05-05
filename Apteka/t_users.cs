@@ -31,6 +31,8 @@ namespace Apteka
         public string KodPocztowy { get; set; }
         public bool Admin { get; set; }
         public string IsValid { get; set; }
+        public Nullable<int> NumerDomu { get; set; }
+        public Nullable<int> NumerMieszkania { get; set; }
     
         public virtual ICollection<t_sklepy> t_sklepy { get; set; }
         public virtual ICollection<t_zamowienia> t_zamowienia { get; set; }

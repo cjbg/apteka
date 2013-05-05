@@ -192,6 +192,7 @@ namespace Apteka.Controllers
                         mail.Body = "Potwierdzenie <br/> <a href=\"http://"+Request.Url.DnsSafeHost+":"+ Request.Url.Port +"/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
                         
                         SmtpServer.Host = "smtp.gmail.com";
+                        SmtpServer.EnableSsl = true;
                         SmtpServer.UseDefaultCredentials = false;
                         SmtpServer.Credentials = basicCredential;
                         SmtpServer.Send(mail);

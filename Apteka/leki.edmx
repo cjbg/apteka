@@ -162,7 +162,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nazwa" Type="varchar" Nullable="false" MaxLength="255" />
     <Property Name="Wlasciciel_id_user" Type="int" Nullable="false" />
-    <Property Name="NumerKonta" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="t_substancje">
     <Key>
@@ -363,7 +362,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__t_CartIte__Produ__59FA5E80">
-    <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="1" />
+    <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="t_CartItems" Type="db_lekiModel.Store.t_CartItems" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="t_produkty">
@@ -554,7 +555,6 @@
           <NavigationProperty Name="t_produkty" Relationship="db_lekiModel.FK_t_produkty_t_sklepy" FromRole="t_sklepy" ToRole="t_produkty" />
           <NavigationProperty Name="t_users" Relationship="db_lekiModel.FK_t_sklepy_t_users" FromRole="t_sklepy" ToRole="t_users" />
           <NavigationProperty Name="t_zamowienia" Relationship="db_lekiModel.FK_t_zamowienia_t_users" FromRole="t_sklepy" ToRole="t_zamowienia" />
-          <Property Type="Int32" Name="NumerKonta" Nullable="true" />
         </EntityType>
         <EntityType Name="t_substancje">
           <Key>
@@ -762,8 +762,11 @@
           <NavigationProperty Name="t_produkty" Relationship="db_lekiModel.FK__t_CartIte__Produ__59FA5E80" FromRole="t_CartItems" ToRole="t_produkty" />
         </EntityType>
         <Association Name="FK__t_CartIte__Produ__59FA5E80">
-          <End Type="db_lekiModel.t_produkty" Role="t_produkty" Multiplicity="1" />
-          <End Type="db_lekiModel.t_CartItems" Role="t_CartItems" Multiplicity="*" />
+          <End Type="db_lekiModel.t_produkty" Role="t_produkty" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="db_lekiModel.t_CartItems" Role="t_CartItems" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="t_produkty">
               <PropertyRef Name="Id" />
@@ -875,7 +878,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
           <ScalarProperty Name="Wlasciciel_id_user" ColumnName="Wlasciciel_id_user" />
-          <ScalarProperty Name="NumerKonta" ColumnName="NumerKonta" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -964,7 +966,7 @@
         <EntityTypeShape EntityType="db_lekiModel.t_produkty" Width="1.5" PointX="12.25" PointY="11.875" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="db_lekiModel.t_refundacja" Width="1.5" PointX="3" PointY="9.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="db_lekiModel.t_sklad" Width="1.5" PointX="8.25" PointY="6.5" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_lekiModel.t_sklepy" Width="1.5" PointX="10" PointY="11.875" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_lekiModel.t_sklepy" Width="1.5" PointX="10" PointY="11.875" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="db_lekiModel.t_substancje" Width="1.5" PointX="6" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="db_lekiModel.t_syno" Width="1.5" PointX="3" PointY="12.125" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="db_lekiModel.t_users" Width="1.5" PointX="7.75" PointY="11.25" Height="3.9033007812499978" IsExpanded="true" />
@@ -1005,10 +1007,10 @@
           <ConnectorPoint PointX="8.25" PointY="7.4901432291666659" />
         </AssociationConnector>
         <AssociationConnector Association="db_lekiModel.FK_t_produkty_t_sklepy" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.5" PointY="13.057444661458334" />
-          <ConnectorPoint PointX="11.791666666666666" PointY="13.057444661458334" />
-          <ConnectorPoint PointX="11.958333333333334" PointY="13.057444661458334" />
-          <ConnectorPoint PointX="12.25" PointY="13.057444661458334" />
+          <ConnectorPoint PointX="11.5" PointY="12.9612939453125" />
+          <ConnectorPoint PointX="11.791666666666666" PointY="12.9612939453125" />
+          <ConnectorPoint PointX="11.958333333333334" PointY="12.9612939453125" />
+          <ConnectorPoint PointX="12.25" PointY="12.9612939453125" />
         </AssociationConnector>
         <AssociationConnector Association="db_lekiModel.sub_id_num" ManuallyRouted="false">
           <ConnectorPoint PointX="7.5" PointY="1.5478417968749998" />
@@ -1016,8 +1018,8 @@
           <ConnectorPoint PointX="9" PointY="6.5" />
         </AssociationConnector>
         <AssociationConnector Association="db_lekiModel.FK_t_sklepy_t_users" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.25" PointY="13.057444661458334" />
-          <ConnectorPoint PointX="10" PointY="13.057444661458334" />
+          <ConnectorPoint PointX="9.25" PointY="12.9612939453125" />
+          <ConnectorPoint PointX="10" PointY="12.9612939453125" />
         </AssociationConnector>
         <AssociationConnector Association="db_lekiModel.FK_t_produkty_t_leki" >
           <ConnectorPoint PointX="3.75" PointY="9.0667936197916656" />
@@ -1031,8 +1033,8 @@
           <ConnectorPoint PointX="10.666666666666666" PointY="11" />
           <ConnectorPoint PointX="10.833333333333334" PointY="11" />
           <ConnectorPoint PointX="11.875" PointY="11" />
-          <ConnectorPoint PointX="11.875" PointY="13.776069708333335" />
-          <ConnectorPoint PointX="12.25" PointY="13.776069708333335" />
+          <ConnectorPoint PointX="11.875" PointY="13.727994350260417" />
+          <ConnectorPoint PointX="12.25" PointY="13.727994350260417" />
         </AssociationConnector>
         <EntityTypeShape EntityType="db_lekiModel.t_zamowienia" Width="1.5" PointX="12.25" PointY="8.75" Height="2.3648893229166674" />
         <AssociationConnector Association="db_lekiModel.FK_t_zamowienia_t_users" >

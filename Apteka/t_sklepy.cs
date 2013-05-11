@@ -23,7 +23,6 @@ namespace Apteka
         public int Id { get; set; }
         public string Nazwa { get; set; }
         public int Wlasciciel_id_user { get; set; }
-        public Nullable<int> NumerKonta { get; set; }
     
         public virtual ICollection<t_produkty> t_produkty { get; set; }
         public virtual t_users t_users { get; set; }

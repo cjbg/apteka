@@ -11,5 +11,6 @@ namespace Apteka.ViewModels
         public decimal CartTotal { get; set; }
         public int CartTotalNumber { get; set; }
         public IEnumerable<t_produkty> Products { get; set; }
+        public t_users User { get; set; }
     }
 }

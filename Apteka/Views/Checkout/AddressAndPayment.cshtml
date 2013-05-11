@@ -1,7 +1,32 @@
-﻿@model Apteka.ViewModels.ShoppingCartViewModel;
+﻿@model Apteka.ViewModels.ShoppingCartViewModel
 @{
     ViewBag.Title = "Potwierdzenie realizacji zamówienia";
+    ViewBag.difApt = Model.CartItems.Select(x => x.t_produkty.sklep_id).Distinct().Count();
 }
+<script type="text/javascript">
+    $(function () {
+        // Document.ready -> link up remove event handler
+        $(".transportOption").click(function () {
+            var value = $(this).attr("value");
+            $(".transportSum").html(value);
+            var sum = parseInt($(".prodSum").html()) +
+                parseInt($(".transportSum").html()) * parseInt($(".difApt").html()) +
+                parseInt($(".paymentSum").html()) * parseInt($(".difApt").html());
+            $(".allSum").html(sum);
+            //console.log(sum);
+        });
+
+        $(".paymentOption").click(function () {
+            var value = $(this).attr("value");
+            $(".paymentSum").html(value);
+            var sum = parseInt($(".prodSum").html()) +
+                parseInt($(".transportSum").html()) * parseInt($(".difApt").html()) +
+                parseInt($(".paymentSum").html()) * parseInt($(".difApt").html());
+            $(".allSum").html(sum);
+            //console.log();
+        });
+    });
+</script>
 
 @if (Model.CartTotalNumber > 0)
 {
@@ -50,26 +75,60 @@
     </table>
     <br />
     <h3>Adres wysyłki:</h3>
-    @foreach (Apteka.t_users item in Model.User)
+    <span>Imie: </span> @Model.User.Imie<br />
+    <span>Nazwisko: </span> @Model.User.Nazwisko<br />
+    <span>Ulica: </span> @Model.User.Ulica<br />
+    <span>Numer domu/mieszkania: </span> <p>@Model.User.NumerDomu / @Model.User.NumerMieszkania</p> <br />
+    <span>Kod pocztowy: </span> @Model.User.KodPocztowy<br />
+    <span>Miejscowość: </span> @Model.User.Miasto<br />
+    <span>Adres email: </span> @Model.User.email<br />
+    @Html.CheckBox("otherAddress")
+    @Html.Label("Inny adres do wysyłki")
+    <br />
+    <h3>Sposób dostawy*:</h3>
+    using (Html.BeginForm())
     {
-        @Html.TextBox(item.Imie)
-        @Html.TextBox(@item.Nazwisko)
-        @Html.TextBox(@item.Ulica)
-        <!-- Numer domu by sie przydal -->
-        @Html.TextBox(@item.KodPocztowy)
-        @Html.TextBox(@item.Miasto)
-        @Html.TextBox(@item.email)
-        @Html.CheckBox("Inny adres do wysyłki")
+    <table>
+        <tr>
+            <td>@Html.RadioButton("transportOption", "0", true, new { @class = "transportOption" }) Odbiór osobisty: <b>0 PLN</b></td>
+        </tr>
+        <tr>
+            <td>@Html.RadioButton("transportOption", "10", false, new { @class = "transportOption" }) Przesyłka kurierska: <b>10 PLN</b></td>
+        </tr>
+        <tr>
+            <td>@Html.RadioButton("transportOption", "7", false, new { @class = "transportOption" }) Przesyłka pocztowa (list polecony): <b>7 PLN</b></td>
+        </tr>
+        <tr>
+            <td>@Html.RadioButton("transportOption", "5", false, new { @class = "transportOption" }) Przesyłka pocztowa (list zwykły): <b>5 PLN</b></td>
+        </tr>
+    </table>
+
+    <br />
+    <h3>Sposób płatności*:</h3>
+    <table>
+        <tr>
+            <td>@Html.RadioButton("paymentOption", "0", true, new { @class = "paymentOption" }) W aptece: <b>0 PLN</b></td>
+        </tr>
+        <tr>
+            <td>@Html.RadioButton("paymentOption", "5", false, new { @class = "paymentOption" }) Przelew na konto: <b>5 PLN</b></td>
+        </tr>
+        <tr>
+            <td>@Html.RadioButton("paymentOption", "10", false, new { @class = "paymentOption" }) Przy odbiorze: <b>10 PLN</b></td>
+        </tr>
+    </table>
+    <br />
+    <h3>Podsumowanie**:</h3>
+    <p>Ilość różnych aptek: <b><span class='difApt'>@ViewBag.difApt</span></b></p><br />
+    <p>Cena produktów: <b><span class='prodSum'>@Model.CartTotal</span> PLN</b></p><br />
+    <p>Opłata za dostawę: <b><span class='transportSum'>0</span> PLN</b> x @ViewBag.difApt</p><br />
+    <p>Opłata za płatność: <b><span class='paymentSum'>0</span> PLN</b> x @ViewBag.difApt</p><br />
+    <hr />
+    <p>Całkowity koszt: <big><b><span class='allSum'>@Model.CartTotal</span> PLN</b></big></p><br />
+    <p><small>* Sposób dostawy i płatności wybierasz dla wszystkich sklepów.</small></p>
+    <p><small>** Przy zakupach w kilku różnych sklepach, cena za transport/płatność jest większa (równa wielokrotności wybranych sklepów).</small></p>
+    <br />
+    <input type="submit" value="Zatwierdzam" />
     }
-    <br />
-    <h3>Sposób płatności:</h3>
-    <br />
-    <h3>Sposób dostawy:</h3>
-    <br />
-    <h3>Podsumowanie*:</h3>
-    <p><small>* Przy zakupach w kilku różnych sklepach, cena za transport/płatność jest większa (równa wielokrotności wybranych sklepów).</small></p>
-    <br />
-    @Html.ActionLink("Zatwierdzam", "Enter", "Checkout")
 }
 else
 {

@@ -67,6 +67,21 @@
             @Html.EditorFor(model => model.Ulica)
             @Html.ValidationMessageFor(model => model.Ulica)
         </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.NumerDomu)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.NumerDomu)
+            @Html.ValidationMessageFor(m => m.NumerDomu)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.NumerMieszkania)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.NumerMieszkania)
+            @Html.ValidationMessageFor(m => m.NumerMieszkania)
+        </div>
 
         <p>
             <input type="submit" value="Zapisz" />

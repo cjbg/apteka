@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 05/05/2013 12:14:48
+-- Date Created: 05/11/2013 14:06:20
 -- Generated from EDMX file: C:\Users\Andre\Documents\GitHub\apteka\Apteka\leki.edmx
 -- --------------------------------------------------
 
@@ -17,9 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_t_CartItems_t_produkty]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[t_CartItems] DROP CONSTRAINT [FK_t_CartItems_t_produkty];
-GO
 IF OBJECT_ID(N'[dbo].[FK_t_informacje_t_inter]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_informacje] DROP CONSTRAINT [FK_t_informacje_t_inter];
 GO
@@ -35,17 +32,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_t_leki_t_producenci]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_leki] DROP CONSTRAINT [FK_t_leki_t_producenci];
 GO
-IF OBJECT_ID(N'[dbo].[FK_t_produkty_t_leki]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[t_produkty] DROP CONSTRAINT [FK_t_produkty_t_leki];
+IF OBJECT_ID(N'[dbo].[FK_t_sklad_t_leki]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[t_sklad] DROP CONSTRAINT [FK_t_sklad_t_leki];
 GO
 IF OBJECT_ID(N'[dbo].[FK_t_produkty_t_sklepy]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_produkty] DROP CONSTRAINT [FK_t_produkty_t_sklepy];
 GO
-IF OBJECT_ID(N'[dbo].[FK_t_sklad_t_leki]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[t_sklad] DROP CONSTRAINT [FK_t_sklad_t_leki];
+IF OBJECT_ID(N'[dbo].[FK_sub_id_num]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[t_sklad] DROP CONSTRAINT [FK_sub_id_num];
 GO
 IF OBJECT_ID(N'[dbo].[FK_t_sklepy_t_users]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_sklepy] DROP CONSTRAINT [FK_t_sklepy_t_users];
+GO
+IF OBJECT_ID(N'[dbo].[FK_t_produkty_t_leki]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[t_produkty] DROP CONSTRAINT [FK_t_produkty_t_leki];
 GO
 IF OBJECT_ID(N'[dbo].[FK_t_zamowienia_t_users]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_zamowienia] DROP CONSTRAINT [FK_t_zamowienia_t_users];
@@ -53,17 +53,14 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_t_zamowienia_t_users1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[t_zamowienia] DROP CONSTRAINT [FK_t_zamowienia_t_users1];
 GO
-IF OBJECT_ID(N'[dbo].[FK_sub_id_num]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[t_sklad] DROP CONSTRAINT [FK_sub_id_num];
+IF OBJECT_ID(N'[dbo].[FK__t_CartIte__Produ__59FA5E80]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[t_CartItems] DROP CONSTRAINT [FK__t_CartIte__Produ__59FA5E80];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[t_CartItems]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[t_CartItems];
-GO
 IF OBJECT_ID(N'[dbo].[t_informacje]', 'U') IS NOT NULL
     DROP TABLE [dbo].[t_informacje];
 GO
@@ -99,6 +96,9 @@ IF OBJECT_ID(N'[dbo].[t_users]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[t_zamowienia]', 'U') IS NOT NULL
     DROP TABLE [dbo].[t_zamowienia];
+GO
+IF OBJECT_ID(N'[dbo].[t_CartItems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[t_CartItems];
 GO
 
 -- --------------------------------------------------
@@ -192,8 +192,7 @@ GO
 CREATE TABLE [dbo].[t_sklepy] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Nazwa] varchar(255)  NOT NULL,
-    [Wlasciciel_id_user] int  NOT NULL,
-    [NumerKonta] int  NULL
+    [Wlasciciel_id_user] int  NOT NULL
 );
 GO
 
@@ -504,7 +503,7 @@ ADD CONSTRAINT [FK__t_CartIte__Produ__59FA5E80]
     FOREIGN KEY ([ProduktId])
     REFERENCES [dbo].[t_produkty]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK__t_CartIte__Produ__59FA5E80'
 CREATE INDEX [IX_FK__t_CartIte__Produ__59FA5E80]

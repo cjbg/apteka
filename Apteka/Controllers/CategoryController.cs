@@ -20,340 +20,368 @@ namespace Apteka.Controllers
     {
         private db_lekiContext db = new db_lekiContext();
 
-        public ActionResult Index(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Index(string searchString, string sortModel)
         {
             ViewBag.Message = "Wszystkie leki";
             ViewBag.ActionName = "Index";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
+
+            var synonimy = produkty;
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
+                produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
 
-                var synonimy = produkty;
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                foreach (var p in synonimy)
                 {
-                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
-                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
-
-                    foreach (var p in synonimy)
-                    {
-                        lista.Add(p);
-                    }
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
+                foreach (var p in produkty)
                 {
-                    lista = produkty.ToList();
+                    lista.Add(p);
                 }
-
-                return View(lista);
             }
             else
             {
-                return View(sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x=>x.ilosc).ToList();
+                    break;
+            }
+
+            return View(lista);
         }
 
-        public ActionResult Kosmetyki(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Kosmetyki(string searchString, string sortModel)
         {
             ViewBag.Message = "Kosmetyki";
             ViewBag.ActionName = "Kosmetyki";
 
-            if (sortModel == null)
+            
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.kosmetyk_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+            var synonimy = produkty;
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.kosmetyk_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+                produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
 
-                var synonimy = produkty;
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                foreach (var p in synonimy)
                 {
-                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
-                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
-
-                    foreach (var p in synonimy)
-                    {
-                        lista.Add(p);
-                    }
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
+                foreach (var p in produkty)
                 {
-                    lista = produkty.ToList();
+                    lista.Add(p);
                 }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
-        public ActionResult Dieta(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Dieta(string searchString, string sortModel)
         {
             ViewBag.Message = "Dieta";
             ViewBag.ActionName = "Dieta";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.diet_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+            var synonimy = produkty;
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.diet_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+                produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
 
-                var synonimy = produkty;
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                foreach (var p in synonimy)
                 {
-                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
-                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
-
-                    foreach (var p in synonimy)
-                    {
-                        lista.Add(p);
-                    }
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
+                foreach (var p in produkty)
                 {
-                    lista = produkty.ToList();
+                    lista.Add(p);
                 }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
-        public ActionResult Dezynfekcyjny(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Dezynfekcyjny(string searchString, string sortModel)
         {
             ViewBag.Message = "Dezynfekcyjny";
             ViewBag.ActionName = "Dezynfekcyjny";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.dezyn_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+            var synonimy = produkty;
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.dezyn_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+                produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
 
-                var synonimy = produkty;
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                foreach (var p in synonimy)
                 {
-                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
-                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
-
-                    foreach (var p in synonimy)
-                    {
-                        lista.Add(p);
-                    }
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
+                foreach (var p in produkty)
                 {
-                    lista = produkty.ToList();
+                    lista.Add(p);
                 }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
-        public ActionResult Homeopatyczny(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Homeopatyczny(string searchString, string sortModel)
         {
             ViewBag.Message = "Homeopatyczny";
             ViewBag.ActionName = "Homeopatyczny";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.homeo_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+            var synonimy = produkty;
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.homeo_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+                produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
 
-                var synonimy = produkty;
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                foreach (var p in synonimy)
                 {
-                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
-                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
-
-                    foreach (var p in synonimy)
-                    {
-                        lista.Add(p);
-                    }
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
+                foreach (var p in produkty)
                 {
-                    lista = produkty.ToList();
+                    lista.Add(p);
                 }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
-        public ActionResult Doping(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Doping(string searchString, string sortModel)
         {
             ViewBag.Message = "Środek dopingujący";
             ViewBag.ActionName = "Doping";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.doping_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+
+            var synonimy = produkty;
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.doping_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
+                produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
+                synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
 
-                var synonimy = produkty;
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                foreach (var p in synonimy)
                 {
-                    produkty = produkty.Where(a => a.t_leki.nazwa_char.Contains(searchString));
-                    synonimy = synonimy.Where(b => b.t_leki.t_informacje.t_syno.nazwa_char.Equals(searchString));
-
-                    foreach (var p in synonimy)
-                    {
-                        lista.Add(p);
-                    }
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
+                foreach (var p in produkty)
                 {
-                    lista = produkty.ToList();
+                    lista.Add(p);
                 }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
-        public ActionResult Producent(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Producent(string searchString, string sortModel)
         {
             ViewBag.Message = "Producent";
             ViewBag.ActionName = "Producent";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                produkty = produkty.Where(a => a.t_leki.t_producenci.nazwa_char.Contains(searchString));
+                foreach (var p in produkty)
                 {
-                    produkty = produkty.Where(a => a.t_leki.t_producenci.nazwa_char.Contains(searchString));
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
-                {
-                    lista = produkty.ToList();
-                }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
-        public ActionResult Internaz(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Internaz(string searchString, string sortModel)
         {
             ViewBag.Message = "Nazwa międzynarodowa";
             ViewBag.ActionName = "Internaz";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                produkty = produkty.Where(a => a.t_leki.t_informacje.t_inter.nazwa_char.Contains(searchString));
+                foreach (var p in produkty)
                 {
-                    produkty = produkty.Where(a => a.t_leki.t_informacje.t_inter.nazwa_char.Contains(searchString));
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
-                {
-                    lista = produkty.ToList();
-                }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
-        public ActionResult Apteka(string searchString, IEnumerable<Apteka.t_produkty> sortModel)
+        public ActionResult Apteka(string searchString, string sortModel)
         {
             ViewBag.Message = "Oferta aptek";
             ViewBag.ActionName = "Apteka";
 
-            if (sortModel == null)
+            var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
+
+            List<t_produkty> lista = new List<t_produkty>();
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
-
-                List<t_produkty> lista = new List<t_produkty>();
-
-                if (!String.IsNullOrEmpty(searchString))
+                produkty = produkty.Where(a => a.t_sklepy.Nazwa.Contains(searchString));
+                foreach (var p in produkty)
                 {
-                    produkty = produkty.Where(a => a.t_sklepy.Nazwa.Contains(searchString));
-                    foreach (var p in produkty)
-                    {
-                        lista.Add(p);
-                    }
+                    lista.Add(p);
                 }
-                else
-                {
-                    lista = produkty.ToList();
-                }
-
-                return View("index", lista);
             }
             else
             {
-                return View("index", sortModel);
+                lista = produkty.ToList();
             }
+
+            switch (sortModel)
+            {
+                case "cena": lista = lista.OrderBy(x => x.cena).ToList();
+                    break;
+                case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
+                    break;
+                case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+            }
+
+            return View("index", lista);
         }
 
         public ActionResult About()

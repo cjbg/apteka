@@ -11,13 +11,13 @@
 <table>
     <tr>
         <th>
-            @Html.ActionLink("Cena", (string)ViewBag.ActionName, new { sortModel = Model.OrderBy(x => x.cena) })
+            @Html.ActionLink("Cena", (string)ViewBag.ActionName, new { sortModel = "cena" })
         </th>
         <th>
-            @Html.ActionLink("Ilość", (string)ViewBag.ActionName, new { sortModel = Model.OrderBy(x => x.ilosc) })
+            @Html.ActionLink("Ilość", (string)ViewBag.ActionName, new { sortModel = "ilosc" })
         </th>
         <th>
-            @Html.ActionLink("Cena i ilość", (string)ViewBag.ActionName, new { sortModel = Model.OrderBy(x => x.cena).ThenBy(x => x.ilosc) })
+            @Html.ActionLink("Cena i ilość", (string)ViewBag.ActionName, new { sortModel = "cenailosc" })
         </th>
     </tr> 
 </table>

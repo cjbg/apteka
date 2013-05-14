@@ -82,6 +82,9 @@
             @Html.DisplayFor(modelItem => item.t_leki.t_informacje.t_inter.nazwa_char)
         </td>                
         }
+        <td>
+            @Html.ActionLink("Dodaj do koszyka", "AddToCart", "ShoppingCart", new { id = item.Id, returnUrl = Request.Url }, new { @class = "addtocard" })
+        </td>
     </tr>    
 }
 </table>

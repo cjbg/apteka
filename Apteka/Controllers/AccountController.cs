@@ -72,8 +72,12 @@ namespace Apteka.Controllers
                         ModelState.AddModelError("", "Rejestracja użytkownika nie została potwierdzone poprzez skrzynkę mailową");
                     }
                 }
+                else
+                {
+                    ModelState.AddModelError("", "Użytkownik nie istnieje");
+                }
             }
-            ModelState.AddModelError("", "Użytkownik nie istnieje");
+            
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -165,7 +169,12 @@ namespace Apteka.Controllers
 
             if (mem.Count() == 0)
             {
-                if (model.Haslo != null && model.Haslo.Length > 7)
+                if (model.email == null || model.Imie == null || model.KodPocztowy == null || model.Nazwisko == null
+                    || model.Ulica == null || model.Miasto == null || model.NumerDomu == null || model.NumerMieszkania == null)
+                {
+                    ModelState.AddModelError("", "Proszę uzupełnić pola.");
+                }
+                else if (model.Haslo != null && model.Haslo.Length > 7)
                 {
                     if (model.email.Contains('@'))
                     {
@@ -189,8 +198,8 @@ namespace Apteka.Controllers
                         mail.To.Add(model.email);
                         mail.Subject = "Potwierdzenie rejestracji";
                         mail.IsBodyHtml = true;
-                        mail.Body = "Potwierdzenie <br/> <a href=\"http://"+Request.Url.DnsSafeHost+":"+ Request.Url.Port +"/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
-                        
+                        mail.Body = "Potwierdzenie <br/> <a href=\"http://" + Request.Url.DnsSafeHost + ":" + Request.Url.Port + "/Account/RegisterConfirmation?searchString=" + result + "\">Potwierdź rejestrację klikając w ten link</a> ";
+
                         SmtpServer.Host = "smtp.gmail.com";
                         //SmtpServer.EnableSsl = true;
                         SmtpServer.UseDefaultCredentials = false;
@@ -203,13 +212,21 @@ namespace Apteka.Controllers
 
                         return RedirectToAction("Index", "Home");
                     }
+                    else
+                    {
+                        ModelState.AddModelError("", "Błędny e-mail");
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Hasło ma mniej niż 8 znaków");
                 }
             }
-            ModelState.AddModelError("", "Uzytkownik już istnieje");
+            else
+            {
+                ModelState.AddModelError("", "Uzytkownik już istnieje lub nie uzupełniono pola login");
+            }
+            
             return View(model);
         }
 

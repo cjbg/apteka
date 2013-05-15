@@ -38,6 +38,7 @@ namespace Apteka.Controllers
         {            
             ViewBag.lek_id = new SelectList(db.t_leki.Where(c => c.t_informacje.bez_rec_bool == true), "pk_lek_id_num", "nazwa_char");
             return View();
+            // <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
         } 
 
         //

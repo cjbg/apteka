@@ -103,6 +103,9 @@
     <Compile Include="Models\MenuItemModel.cs" />
     <Compile Include="Models\SimpleVerticalMenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>lekiModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="t_CartItems.cs">
       <DependentUpon>lekiModel.tt</DependentUpon>
     </Compile>

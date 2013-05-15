@@ -5,377 +5,375 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="db_lekiModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-  <EntityContainer Name="db_lekiModelStoreContainer">
-    <EntitySet Name="t_informacje" EntityType="db_lekiModel.Store.t_informacje" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_inter" EntityType="db_lekiModel.Store.t_inter" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_leki" EntityType="db_lekiModel.Store.t_leki" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_producenci" EntityType="db_lekiModel.Store.t_producenci" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_produkty" EntityType="db_lekiModel.Store.t_produkty" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_refundacja" EntityType="db_lekiModel.Store.t_refundacja" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_sklad" EntityType="db_lekiModel.Store.t_sklad" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_sklepy" EntityType="db_lekiModel.Store.t_sklepy" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_substancje" EntityType="db_lekiModel.Store.t_substancje" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_syno" EntityType="db_lekiModel.Store.t_syno" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_users" EntityType="db_lekiModel.Store.t_users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_zamowienia" EntityType="db_lekiModel.Store.t_zamowienia" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="t_CartItems" EntityType="db_lekiModel.Store.t_CartItems" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_t_informacje_t_inter" Association="db_lekiModel.Store.FK_t_informacje_t_inter">
-      <End Role="t_inter" EntitySet="t_inter" />
-      <End Role="t_informacje" EntitySet="t_informacje" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_informacje_t_leki" Association="db_lekiModel.Store.FK_t_informacje_t_leki">
-      <End Role="t_leki" EntitySet="t_leki" />
-      <End Role="t_informacje" EntitySet="t_informacje" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_informacje_t_refundacja" Association="db_lekiModel.Store.FK_t_informacje_t_refundacja">
-      <End Role="t_refundacja" EntitySet="t_refundacja" />
-      <End Role="t_informacje" EntitySet="t_informacje" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_informacje_t_syno" Association="db_lekiModel.Store.FK_t_informacje_t_syno">
-      <End Role="t_syno" EntitySet="t_syno" />
-      <End Role="t_informacje" EntitySet="t_informacje" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_leki_t_producenci" Association="db_lekiModel.Store.FK_t_leki_t_producenci">
-      <End Role="t_producenci" EntitySet="t_producenci" />
-      <End Role="t_leki" EntitySet="t_leki" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_sklad_t_leki" Association="db_lekiModel.Store.FK_t_sklad_t_leki">
-      <End Role="t_leki" EntitySet="t_leki" />
-      <End Role="t_sklad" EntitySet="t_sklad" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_produkty_t_sklepy" Association="db_lekiModel.Store.FK_t_produkty_t_sklepy">
-      <End Role="t_sklepy" EntitySet="t_sklepy" />
-      <End Role="t_produkty" EntitySet="t_produkty" />
-    </AssociationSet>
-    <AssociationSet Name="sub_id_num" Association="db_lekiModel.Store.sub_id_num">
-      <End Role="t_substancje" EntitySet="t_substancje" />
-      <End Role="t_sklad" EntitySet="t_sklad" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_sklepy_t_users" Association="db_lekiModel.Store.FK_t_sklepy_t_users">
-      <End Role="t_users" EntitySet="t_users" />
-      <End Role="t_sklepy" EntitySet="t_sklepy" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_produkty_t_leki" Association="db_lekiModel.Store.FK_t_produkty_t_leki">
-      <End Role="t_leki" EntitySet="t_leki" />
-      <End Role="t_produkty" EntitySet="t_produkty" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_zamowienia_t_users" Association="db_lekiModel.Store.FK_t_zamowienia_t_users">
-      <End Role="t_sklepy" EntitySet="t_sklepy" />
-      <End Role="t_zamowienia" EntitySet="t_zamowienia" />
-    </AssociationSet>
-    <AssociationSet Name="FK_t_zamowienia_t_users1" Association="db_lekiModel.Store.FK_t_zamowienia_t_users1">
-      <End Role="t_users" EntitySet="t_users" />
-      <End Role="t_zamowienia" EntitySet="t_zamowienia" />
-    </AssociationSet>
-    <AssociationSet Name="FK__t_CartIte__Produ__59FA5E80" Association="db_lekiModel.Store.FK__t_CartIte__Produ__59FA5E80">
-      <End Role="t_produkty" EntitySet="t_produkty" />
-      <End Role="t_CartItems" EntitySet="t_CartItems" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="t_informacje">
-    <Key>
-      <PropertyRef Name="pk_lek_id_num" />
-    </Key>
-    <Property Name="pk_lek_id_num" Type="int" Nullable="false" />
-    <Property Name="inter_id_num" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="syno_id_num" Type="int" Nullable="false" />
-    <Property Name="synozb_id_num" Type="int" Nullable="true" />
-    <Property Name="ref_id_num" Type="int" Nullable="false" />
-    <Property Name="bez_rec_bool" Type="bit" Nullable="true" />
-    <Property Name="polski_bool" Type="bit" Nullable="true" />
-    <Property Name="kosmetyk_bool" Type="bit" Nullable="true" />
-    <Property Name="homeo_bool" Type="bit" Nullable="true" />
-    <Property Name="diet_bool" Type="bit" Nullable="true" />
-    <Property Name="antykonc_bool" Type="bit" Nullable="true" />
-    <Property Name="surowiec_bool" Type="bit" Nullable="true" />
-    <Property Name="opak_bool" Type="bit" Nullable="true" />
-    <Property Name="surowica_bool" Type="bit" Nullable="true" />
-    <Property Name="szczep_bool" Type="bit" Nullable="true" />
-    <Property Name="iniek_bool" Type="bit" Nullable="true" />
-    <Property Name="opatr_bool" Type="bit" Nullable="true" />
-    <Property Name="szew_bool" Type="bit" Nullable="true" />
-    <Property Name="prot_bool" Type="bit" Nullable="true" />
-    <Property Name="diag_bool" Type="bit" Nullable="true" />
-    <Property Name="socz_bool" Type="bit" Nullable="true" />
-    <Property Name="sanit_bool" Type="bit" Nullable="true" />
-    <Property Name="dezyn_bool" Type="bit" Nullable="true" />
-    <Property Name="pomoc_bool" Type="bit" Nullable="true" />
-    <Property Name="weteryn_bool" Type="bit" Nullable="true" />
-    <Property Name="doping_bool" Type="bit" Nullable="true" />
-    <Property Name="inny_bool" Type="bit" Nullable="true" />
-    <Property Name="wersja_date" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="t_inter">
-    <Key>
-      <PropertyRef Name="pk_inter_id_num" />
-    </Key>
-    <Property Name="pk_inter_id_num" Type="int" Nullable="false" />
-    <Property Name="nazwa_char" Type="varchar" Nullable="true" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="t_leki">
-    <Key>
-      <PropertyRef Name="pk_lek_id_num" />
-    </Key>
-    <Property Name="pk_lek_id_num" Type="int" Nullable="false" />
-    <Property Name="nazwa_char" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="postac_char" Type="varchar" Nullable="true" MaxLength="255" />
-    <Property Name="opak_char" Type="varchar" Nullable="true" MaxLength="255" />
-    <Property Name="prod_id_num" Type="int" Nullable="true" />
-    <Property Name="wersja_date" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="t_producenci">
-    <Key>
-      <PropertyRef Name="pk_prod_id_num" />
-    </Key>
-    <Property Name="pk_prod_id_num" Type="int" Nullable="false" />
-    <Property Name="nazwa_char" Type="varchar" Nullable="false" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="t_produkty">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="cena" Type="decimal" Nullable="false" Precision="19" Scale="2" />
-    <Property Name="sklep_id" Type="int" Nullable="false" />
-    <Property Name="lek_id" Type="int" Nullable="false" />
-    <Property Name="ilosc" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="t_refundacja">
-    <Key>
-      <PropertyRef Name="pk_ref_id_num" />
-    </Key>
-    <Property Name="pk_ref_id_num" Type="int" Nullable="false" />
-    <Property Name="mode_char" Type="varchar" Nullable="true" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="t_sklad">
-    <Key>
-      <PropertyRef Name="pk_sklad_id_num" />
-    </Key>
-    <Property Name="pk_sklad_id_num" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="lek_id_num" Type="int" Nullable="false" />
-    <Property Name="sub_id_num" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="t_sklepy">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nazwa" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="Wlasciciel_id_user" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="t_substancje">
-    <Key>
-      <PropertyRef Name="pk_substancje_id_num" />
-    </Key>
-    <Property Name="pk_substancje_id_num" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nazwa_char" Type="varchar" Nullable="false" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="t_syno">
-    <Key>
-      <PropertyRef Name="pk_syno_id_num" />
-    </Key>
-    <Property Name="pk_syno_id_num" Type="int" Nullable="false" />
-    <Property Name="nazwa_char" Type="varchar" Nullable="true" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="t_users">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Imie" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="Nazwisko" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="Login" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="Haslo" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="email" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="Ulica" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="Miasto" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="KodPocztowy" Type="varchar" Nullable="false" MaxLength="255" />
-    <Property Name="Admin" Type="bit" Nullable="false" />
-    <Property Name="IsValid" Type="varchar" Nullable="true" MaxLength="14" />
-    <Property Name="NumerDomu" Type="int" Nullable="true" />
-    <Property Name="NumerMieszkania" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="t_zamowienia">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="user_id" Type="int" Nullable="false" />
-    <Property Name="lek_data" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="sklep_id" Type="int" Nullable="false" />
-    <Property Name="status" Type="varchar" Nullable="true" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="t_CartItems">
-    <Key>
-      <PropertyRef Name="RecordId" />
-    </Key>
-    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CartId" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Count" Type="int" Nullable="false" />
-    <Property Name="DateCreated" Type="datetime" Nullable="false" />
-    <Property Name="ProduktId" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_t_informacje_t_inter">
-    <End Role="t_inter" Type="db_lekiModel.Store.t_inter" Multiplicity="1" />
-    <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_inter">
-        <PropertyRef Name="pk_inter_id_num" />
-      </Principal>
-      <Dependent Role="t_informacje">
-        <PropertyRef Name="inter_id_num" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_informacje_t_leki">
-    <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="1" />
-    <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="t_leki">
-        <PropertyRef Name="pk_lek_id_num" />
-      </Principal>
-      <Dependent Role="t_informacje">
-        <PropertyRef Name="pk_lek_id_num" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_informacje_t_refundacja">
-    <End Role="t_refundacja" Type="db_lekiModel.Store.t_refundacja" Multiplicity="1" />
-    <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_refundacja">
-        <PropertyRef Name="pk_ref_id_num" />
-      </Principal>
-      <Dependent Role="t_informacje">
-        <PropertyRef Name="ref_id_num" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_informacje_t_syno">
-    <End Role="t_syno" Type="db_lekiModel.Store.t_syno" Multiplicity="1" />
-    <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_syno">
-        <PropertyRef Name="pk_syno_id_num" />
-      </Principal>
-      <Dependent Role="t_informacje">
-        <PropertyRef Name="syno_id_num" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_leki_t_producenci">
-    <End Role="t_producenci" Type="db_lekiModel.Store.t_producenci" Multiplicity="0..1" />
-    <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_producenci">
-        <PropertyRef Name="pk_prod_id_num" />
-      </Principal>
-      <Dependent Role="t_leki">
-        <PropertyRef Name="prod_id_num" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_sklad_t_leki">
-    <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="1" />
-    <End Role="t_sklad" Type="db_lekiModel.Store.t_sklad" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_leki">
-        <PropertyRef Name="pk_lek_id_num" />
-      </Principal>
-      <Dependent Role="t_sklad">
-        <PropertyRef Name="lek_id_num" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_produkty_t_sklepy">
-    <End Role="t_sklepy" Type="db_lekiModel.Store.t_sklepy" Multiplicity="1" />
-    <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_sklepy">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="t_produkty">
-        <PropertyRef Name="sklep_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="sub_id_num">
-    <End Role="t_substancje" Type="db_lekiModel.Store.t_substancje" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="t_sklad" Type="db_lekiModel.Store.t_sklad" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_substancje">
-        <PropertyRef Name="pk_substancje_id_num" />
-      </Principal>
-      <Dependent Role="t_sklad">
-        <PropertyRef Name="sub_id_num" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_sklepy_t_users">
-    <End Role="t_users" Type="db_lekiModel.Store.t_users" Multiplicity="1" />
-    <End Role="t_sklepy" Type="db_lekiModel.Store.t_sklepy" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_users">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="t_sklepy">
-        <PropertyRef Name="Wlasciciel_id_user" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_produkty_t_leki">
-    <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="1" />
-    <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_leki">
-        <PropertyRef Name="pk_lek_id_num" />
-      </Principal>
-      <Dependent Role="t_produkty">
-        <PropertyRef Name="lek_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_zamowienia_t_users">
-    <End Role="t_sklepy" Type="db_lekiModel.Store.t_sklepy" Multiplicity="1" />
-    <End Role="t_zamowienia" Type="db_lekiModel.Store.t_zamowienia" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_sklepy">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="t_zamowienia">
-        <PropertyRef Name="sklep_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_t_zamowienia_t_users1">
-    <End Role="t_users" Type="db_lekiModel.Store.t_users" Multiplicity="1" />
-    <End Role="t_zamowienia" Type="db_lekiModel.Store.t_zamowienia" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_users">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="t_zamowienia">
-        <PropertyRef Name="user_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__t_CartIte__Produ__59FA5E80">
-    <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="t_CartItems" Type="db_lekiModel.Store.t_CartItems" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="t_produkty">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="t_CartItems">
-        <PropertyRef Name="ProduktId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+        <EntityContainer Name="db_lekiModelStoreContainer">
+          <EntitySet Name="t_CartItems" EntityType="db_lekiModel.Store.t_CartItems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_informacje" EntityType="db_lekiModel.Store.t_informacje" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_inter" EntityType="db_lekiModel.Store.t_inter" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_leki" EntityType="db_lekiModel.Store.t_leki" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_producenci" EntityType="db_lekiModel.Store.t_producenci" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_produkty" EntityType="db_lekiModel.Store.t_produkty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_refundacja" EntityType="db_lekiModel.Store.t_refundacja" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_sklad" EntityType="db_lekiModel.Store.t_sklad" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_sklepy" EntityType="db_lekiModel.Store.t_sklepy" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_substancje" EntityType="db_lekiModel.Store.t_substancje" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_syno" EntityType="db_lekiModel.Store.t_syno" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_users" EntityType="db_lekiModel.Store.t_users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="t_zamowienia" EntityType="db_lekiModel.Store.t_zamowienia" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_t_CartItems_t_produkty" Association="db_lekiModel.Store.FK_t_CartItems_t_produkty">
+            <End Role="t_produkty" EntitySet="t_produkty" />
+            <End Role="t_CartItems" EntitySet="t_CartItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_informacje_t_inter" Association="db_lekiModel.Store.FK_t_informacje_t_inter">
+            <End Role="t_inter" EntitySet="t_inter" />
+            <End Role="t_informacje" EntitySet="t_informacje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_informacje_t_leki" Association="db_lekiModel.Store.FK_t_informacje_t_leki">
+            <End Role="t_leki" EntitySet="t_leki" />
+            <End Role="t_informacje" EntitySet="t_informacje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_informacje_t_refundacja" Association="db_lekiModel.Store.FK_t_informacje_t_refundacja">
+            <End Role="t_refundacja" EntitySet="t_refundacja" />
+            <End Role="t_informacje" EntitySet="t_informacje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_informacje_t_syno" Association="db_lekiModel.Store.FK_t_informacje_t_syno">
+            <End Role="t_syno" EntitySet="t_syno" />
+            <End Role="t_informacje" EntitySet="t_informacje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_leki_t_producenci" Association="db_lekiModel.Store.FK_t_leki_t_producenci">
+            <End Role="t_producenci" EntitySet="t_producenci" />
+            <End Role="t_leki" EntitySet="t_leki" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_produkty_t_leki" Association="db_lekiModel.Store.FK_t_produkty_t_leki">
+            <End Role="t_leki" EntitySet="t_leki" />
+            <End Role="t_produkty" EntitySet="t_produkty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_produkty_t_sklepy" Association="db_lekiModel.Store.FK_t_produkty_t_sklepy">
+            <End Role="t_sklepy" EntitySet="t_sklepy" />
+            <End Role="t_produkty" EntitySet="t_produkty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_sklad_t_leki" Association="db_lekiModel.Store.FK_t_sklad_t_leki">
+            <End Role="t_leki" EntitySet="t_leki" />
+            <End Role="t_sklad" EntitySet="t_sklad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_sklepy_t_users" Association="db_lekiModel.Store.FK_t_sklepy_t_users">
+            <End Role="t_users" EntitySet="t_users" />
+            <End Role="t_sklepy" EntitySet="t_sklepy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_zamowienia_t_users" Association="db_lekiModel.Store.FK_t_zamowienia_t_users">
+            <End Role="t_sklepy" EntitySet="t_sklepy" />
+            <End Role="t_zamowienia" EntitySet="t_zamowienia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_zamowienia_t_users1" Association="db_lekiModel.Store.FK_t_zamowienia_t_users1">
+            <End Role="t_users" EntitySet="t_users" />
+            <End Role="t_zamowienia" EntitySet="t_zamowienia" />
+          </AssociationSet>
+          <AssociationSet Name="sub_id_num" Association="db_lekiModel.Store.sub_id_num">
+            <End Role="t_substancje" EntitySet="t_substancje" />
+            <End Role="t_sklad" EntitySet="t_sklad" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="t_CartItems">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CartId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="ProduktId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_informacje">
+          <Key>
+            <PropertyRef Name="pk_lek_id_num" />
+          </Key>
+          <Property Name="pk_lek_id_num" Type="int" Nullable="false" />
+          <Property Name="inter_id_num" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="syno_id_num" Type="int" Nullable="false" />
+          <Property Name="synozb_id_num" Type="int" />
+          <Property Name="ref_id_num" Type="int" Nullable="false" />
+          <Property Name="bez_rec_bool" Type="bit" />
+          <Property Name="polski_bool" Type="bit" />
+          <Property Name="kosmetyk_bool" Type="bit" />
+          <Property Name="homeo_bool" Type="bit" />
+          <Property Name="diet_bool" Type="bit" />
+          <Property Name="antykonc_bool" Type="bit" />
+          <Property Name="surowiec_bool" Type="bit" />
+          <Property Name="opak_bool" Type="bit" />
+          <Property Name="surowica_bool" Type="bit" />
+          <Property Name="szczep_bool" Type="bit" />
+          <Property Name="iniek_bool" Type="bit" />
+          <Property Name="opatr_bool" Type="bit" />
+          <Property Name="szew_bool" Type="bit" />
+          <Property Name="prot_bool" Type="bit" />
+          <Property Name="diag_bool" Type="bit" />
+          <Property Name="socz_bool" Type="bit" />
+          <Property Name="sanit_bool" Type="bit" />
+          <Property Name="dezyn_bool" Type="bit" />
+          <Property Name="pomoc_bool" Type="bit" />
+          <Property Name="weteryn_bool" Type="bit" />
+          <Property Name="doping_bool" Type="bit" />
+          <Property Name="inny_bool" Type="bit" />
+          <Property Name="wersja_date" Type="date" />
+        </EntityType>
+        <EntityType Name="t_inter">
+          <Key>
+            <PropertyRef Name="pk_inter_id_num" />
+          </Key>
+          <Property Name="pk_inter_id_num" Type="int" Nullable="false" />
+          <Property Name="nazwa_char" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="t_leki">
+          <Key>
+            <PropertyRef Name="pk_lek_id_num" />
+          </Key>
+          <Property Name="pk_lek_id_num" Type="int" Nullable="false" />
+          <Property Name="nazwa_char" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="postac_char" Type="varchar" MaxLength="255" />
+          <Property Name="opak_char" Type="varchar" MaxLength="255" />
+          <Property Name="prod_id_num" Type="int" />
+          <Property Name="wersja_date" Type="date" />
+        </EntityType>
+        <EntityType Name="t_producenci">
+          <Key>
+            <PropertyRef Name="pk_prod_id_num" />
+          </Key>
+          <Property Name="pk_prod_id_num" Type="int" Nullable="false" />
+          <Property Name="nazwa_char" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="t_produkty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cena" Type="money" Nullable="false" />
+          <Property Name="sklep_id" Type="int" Nullable="false" />
+          <Property Name="lek_id" Type="int" Nullable="false" />
+          <Property Name="ilosc" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_refundacja">
+          <Key>
+            <PropertyRef Name="pk_ref_id_num" />
+          </Key>
+          <Property Name="pk_ref_id_num" Type="int" Nullable="false" />
+          <Property Name="mode_char" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="t_sklad">
+          <Key>
+            <PropertyRef Name="pk_sklad_id_num" />
+          </Key>
+          <Property Name="pk_sklad_id_num" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="lek_id_num" Type="int" Nullable="false" />
+          <Property Name="sub_id_num" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_sklepy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Wlasciciel_id_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_substancje">
+          <Key>
+            <PropertyRef Name="pk_substancje_id_num" />
+          </Key>
+          <Property Name="pk_substancje_id_num" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa_char" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="t_syno">
+          <Key>
+            <PropertyRef Name="pk_syno_id_num" />
+          </Key>
+          <Property Name="pk_syno_id_num" Type="int" Nullable="false" />
+          <Property Name="nazwa_char" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="t_users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Imie" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Nazwisko" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Login" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Haslo" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Ulica" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Miasto" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="KodPocztowy" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Admin" Type="bit" Nullable="false" />
+          <Property Name="IsValid" Type="varchar" MaxLength="14" />
+          <Property Name="NumerDomu" Type="int" />
+          <Property Name="NumerMieszkania" Type="int" />
+        </EntityType>
+        <EntityType Name="t_zamowienia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="lek_data" Type="xml" />
+          <Property Name="sklep_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_t_CartItems_t_produkty">
+          <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="1" />
+          <End Role="t_CartItems" Type="db_lekiModel.Store.t_CartItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_produkty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_CartItems">
+              <PropertyRef Name="ProduktId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_informacje_t_inter">
+          <End Role="t_inter" Type="db_lekiModel.Store.t_inter" Multiplicity="1" />
+          <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_inter">
+              <PropertyRef Name="pk_inter_id_num" />
+            </Principal>
+            <Dependent Role="t_informacje">
+              <PropertyRef Name="inter_id_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_informacje_t_leki">
+          <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="1" />
+          <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="t_leki">
+              <PropertyRef Name="pk_lek_id_num" />
+            </Principal>
+            <Dependent Role="t_informacje">
+              <PropertyRef Name="pk_lek_id_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_informacje_t_refundacja">
+          <End Role="t_refundacja" Type="db_lekiModel.Store.t_refundacja" Multiplicity="1" />
+          <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_refundacja">
+              <PropertyRef Name="pk_ref_id_num" />
+            </Principal>
+            <Dependent Role="t_informacje">
+              <PropertyRef Name="ref_id_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_informacje_t_syno">
+          <End Role="t_syno" Type="db_lekiModel.Store.t_syno" Multiplicity="1" />
+          <End Role="t_informacje" Type="db_lekiModel.Store.t_informacje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_syno">
+              <PropertyRef Name="pk_syno_id_num" />
+            </Principal>
+            <Dependent Role="t_informacje">
+              <PropertyRef Name="syno_id_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_leki_t_producenci">
+          <End Role="t_producenci" Type="db_lekiModel.Store.t_producenci" Multiplicity="0..1" />
+          <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_producenci">
+              <PropertyRef Name="pk_prod_id_num" />
+            </Principal>
+            <Dependent Role="t_leki">
+              <PropertyRef Name="prod_id_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_produkty_t_leki">
+          <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="1" />
+          <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_leki">
+              <PropertyRef Name="pk_lek_id_num" />
+            </Principal>
+            <Dependent Role="t_produkty">
+              <PropertyRef Name="lek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_produkty_t_sklepy">
+          <End Role="t_sklepy" Type="db_lekiModel.Store.t_sklepy" Multiplicity="1" />
+          <End Role="t_produkty" Type="db_lekiModel.Store.t_produkty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_sklepy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_produkty">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_sklad_t_leki">
+          <End Role="t_leki" Type="db_lekiModel.Store.t_leki" Multiplicity="1" />
+          <End Role="t_sklad" Type="db_lekiModel.Store.t_sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_leki">
+              <PropertyRef Name="pk_lek_id_num" />
+            </Principal>
+            <Dependent Role="t_sklad">
+              <PropertyRef Name="lek_id_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_sklepy_t_users">
+          <End Role="t_users" Type="db_lekiModel.Store.t_users" Multiplicity="1" />
+          <End Role="t_sklepy" Type="db_lekiModel.Store.t_sklepy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_sklepy">
+              <PropertyRef Name="Wlasciciel_id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_zamowienia_t_users">
+          <End Role="t_sklepy" Type="db_lekiModel.Store.t_sklepy" Multiplicity="1" />
+          <End Role="t_zamowienia" Type="db_lekiModel.Store.t_zamowienia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_sklepy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_zamowienia">
+              <PropertyRef Name="sklep_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_zamowienia_t_users1">
+          <End Role="t_users" Type="db_lekiModel.Store.t_users" Multiplicity="1" />
+          <End Role="t_zamowienia" Type="db_lekiModel.Store.t_zamowienia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_zamowienia">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sub_id_num">
+          <End Role="t_substancje" Type="db_lekiModel.Store.t_substancje" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_sklad" Type="db_lekiModel.Store.t_sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_substancje">
+              <PropertyRef Name="pk_substancje_id_num" />
+            </Principal>
+            <Dependent Role="t_sklad">
+              <PropertyRef Name="sub_id_num" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db_lekiModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">

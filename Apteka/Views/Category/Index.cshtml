@@ -1,62 +1,55 @@
 ﻿@model IEnumerable<Apteka.t_produkty>
 
-
+<center>
 <h2>@ViewBag.Message</h2>
+</center>
 
-@using (Html.BeginForm()){   
-         <p> Nazwa: @Html.TextBox("SearchString") 
-         <input type="submit" value="Filtruj" /></p>
-        }
-
+@using (Html.BeginForm()){  
+         <p>@ViewBag.Category: @Html.TextBox("SearchString", null, new { @id = "imp2" }) 
+         <input type="submit" value="Filtruj" id="imp"/></p>
+}
+<br />
 <table>
     <tr>
         <th>
-            @Html.ActionLink("Cena", (string)ViewBag.ActionName, new { sortModel = "cena" })
         </th>
         <th>
-            @Html.ActionLink("Ilość", (string)ViewBag.ActionName, new { sortModel = "ilosc" })
+            @Html.ActionLink("Nazwa", (string)ViewBag.ActionName, new { sortModel = "nazwa" }, new { @class = "sortlink" })
         </th>
         <th>
-            @Html.ActionLink("Cena i ilość", (string)ViewBag.ActionName, new { sortModel = "cenailosc" })
-        </th>
-    </tr> 
-</table>
-
-<table>
-    <tr>
-        <th>
-            Nazwa
+            @Html.ActionLink("Opakowanie", (string)ViewBag.ActionName, new { sortModel = "opakowanie" }, new { @class = "sortlink" })
         </th>
         <th>
-            Opakowanie
+            @Html.ActionLink("Sklep", (string)ViewBag.ActionName, new { sortModel = "sklep" }, new { @class = "sortlink" })
         </th>
         <th>
-            Sklep
+            @Html.ActionLink("Cena", (string)ViewBag.ActionName, new { sortModel = "cena" }, new { @class = "sortlink" })
         </th>
         <th>
-            Cena
-        </th>
-        <th>
-            Ilość
+            @Html.ActionLink("Ilość", (string)ViewBag.ActionName, new { sortModel = "ilosc" }, new { @class = "sortlink" })
         </th>
         @if (ViewBag.ActionName == "Producent")
         {
         <th>
-            Producent
+            @Html.ActionLink("Producent", (string)ViewBag.ActionName, new { sortModel = "producent" }, new { @class = "sortlink" })
         </th>                
         }
         @if (ViewBag.ActionName == "Internaz")
         {
         <th>
-            Nazwa międzynarodowa
+            @Html.ActionLink("Nazwa międzynarodowa", (string)ViewBag.ActionName, new { sortModel = "internaz" }, new { @class = "sortlink" })
         </th>                
         }        
     </tr>
 
-    @foreach (var item in Model) {    
+    @foreach (var item in Model)
+    {    
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.t_leki.nazwa_char)
+            <img src="../../Content/themes/base/images/image_3.png"  alt="brak" class="miniatura"/>
+        </td>
+        <td>
+            @Html.ActionLink(item.t_leki.nazwa_char, "Details", "Produkty", new { id = item.Id }, new { @class = "detail" })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.t_leki.opak_char)
@@ -83,14 +76,15 @@
         </td>                
         }
         <td>
-            @Html.ActionLink("Dodaj do koszyka", "AddToCart", "ShoppingCart", new { id = item.Id, returnUrl = Request.Url }, new { @class = "addtocard" })
+            @Html.ActionLink("Dodaj", "AddToCart", "ShoppingCart", new { id = item.Id, returnUrl = Request.Url }, new { @class = "addtocard" })
         </td>
     </tr>    
-}
+    }
 </table>
-
-@if(!(Model.Count()>0))
+<br />
+@if (!(Model.Count() > 0))
 {
     <h3>Niestety brak wyników, zmień kryterium zapytania...</h3>
     <br />
 }
+<center><< <a href="#">1</a> >> Wyświetlono: <b>@Model.Count()</b> z <b>@Model.Count()</b></center>

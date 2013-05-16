@@ -7,29 +7,19 @@
 <h2>Szczegóły</h2>
 
 <fieldset>
-    <legend>t_produkty</legend>
+    <legend>@Model.t_leki.nazwa_char</legend>
 
-    <div class="display-label">cena</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.cena)
-    </div>
+    <img src="../../Content/themes/base/images/image_3.png"  alt="brak"/><br />
 
-    <div class="display-label">t_sklepy</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.t_sklepy.Nazwa)
-    </div>
-
-    <div class="display-label">t_leki</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.t_leki.nazwa_char)
-    </div>
-
-    <div class="display-label">ilosc</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ilosc)
-    </div>
+    <span>Nazwa leku: </span> <b>@Model.t_leki.nazwa_char</b><br />
+    <span>Cena: </span> <b>@Model.cena</b><br />
+    <span>Nazwa sklepu:</span> <b>@Model.t_sklepy.Nazwa</b><br />
+    <span>Dostępna ilość:</span> <b>@Model.ilosc</b><br />
 </fieldset>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id=Model.Id }) |
+    @if (Session["Admin"] == "Admin")
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id=Model.Id }) <p>|</p>
+    }
     @Html.ActionLink("Powrót", "Index")
 </p>

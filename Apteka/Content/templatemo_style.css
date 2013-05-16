@@ -14,16 +14,18 @@ body {
 }
 
 a:link {
-    color: #034af3;
+    color: black;
+    font-weight: bold;
     text-decoration: underline;
 }
 
 a:visited {
-    color: #505abc;
+    color: black;
+    font-weight: bold;
 }
 
 a:hover {
-    color: #1d60ff;
+    color: black;
     text-decoration: none;
 }
 
@@ -457,6 +459,75 @@ img { margin: 0px; padding: 0px; border: none; }
 	padding-right: 20px;
 	background: url(/Content/themes/base/images/templatemo_shopping_cart.png) bottom right no-repeat;
 }
+
+#content_middle .sortlink 
+{
+    color: Black;
+    font-weight: bold;
+}
+
+#content_middle .addtocard {
+	float: left;
+	font-weight: bold;
+	color: black;
+	padding-right: 20px;
+	background: url(/Content/themes/base/images/templatemo_shopping_cart.png) bottom right no-repeat;
+}
+
+#content_middle .miniatura 
+{
+    width: 40px;
+    height: 40px;
+    border-style: ridge;
+}
+
+table tbody tr:nth-child(2n) {
+  background-color: #ffb167;
+  color: Black;
+}
+
+#content_middle #imp
+{
+  border: 1px solid #777777;
+  background: #fd820d;
+  color: white;
+  font: bold 11px 'Trebuchet MS';
+  padding: 4px;
+  width: 80px;
+  cursor: pointer;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+#content_middle #imp2
+{
+  border: 1px solid #777777;
+  background: white;
+  font: bold 11px 'Trebuchet MS';
+  padding: 4px;
+  width: 200px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+#content_middle h2
+{
+    color: #fd820d;
+    font: bold 24px 'Trebuchet MS';
+}
+
+#content_middle p 
+{
+    color: Black;
+    font: bold 15px 'Trebuchet MS';
+}
+
+#content_middle td a 
+{
+    color: Black;
+    font: bold 12px 'Trebuchet MS';
+}
+
 /* end of content */
 
 /* footer */

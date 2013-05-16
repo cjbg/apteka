@@ -24,6 +24,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Wszystkie leki";
             ViewBag.ActionName = "Index";
+            ViewBag.Category = "Nazwa";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -67,7 +68,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Kosmetyki";
             ViewBag.ActionName = "Kosmetyki";
-
+            ViewBag.Category = "Nazwa";
             
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.kosmetyk_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -111,6 +112,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Dieta";
             ViewBag.ActionName = "Dieta";
+            ViewBag.Category = "Nazwa";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.diet_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -154,6 +156,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Dezynfekcyjny";
             ViewBag.ActionName = "Dezynfekcyjny";
+            ViewBag.Category = "Nazwa";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.dezyn_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -197,6 +200,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Homeopatyczny";
             ViewBag.ActionName = "Homeopatyczny";
+            ViewBag.Category = "Nazwa";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.homeo_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -240,6 +244,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Środek dopingujący";
             ViewBag.ActionName = "Doping";
+            ViewBag.Category = "Nazwa";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.doping_bool == true && c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -283,6 +288,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Producent";
             ViewBag.ActionName = "Producent";
+            ViewBag.Category = "Producent";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -318,6 +324,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Nazwa międzynarodowa";
             ViewBag.ActionName = "Internaz";
+            ViewBag.Category = "Nazwa międzynarodowa";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
 
@@ -353,6 +360,7 @@ namespace Apteka.Controllers
         {
             ViewBag.Message = "Oferta aptek";
             ViewBag.ActionName = "Apteka";
+            ViewBag.Category = "Oferta aptek";
 
             var produkty = db.t_produkty.Include(a => a.t_leki).Include(b => b.t_sklepy).Where(c => c.t_leki.t_informacje.bez_rec_bool == true);
 

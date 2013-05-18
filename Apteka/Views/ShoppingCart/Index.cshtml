@@ -26,7 +26,28 @@ type="text/javascript"></script>
                         $('#cart-status').text('Cart (' + data.CartCount + ')');
                     });
             }
-        });
+            });
+
+            $(".AddLink").click(function () {
+                // Get the id from the link
+                var recordToDelete = $(this).attr("data-id");
+                if (recordToDelete != '') {
+                    // Perform the ajax post
+                    $.post("/ShoppingCart/AddToCartP", { "id": recordToDelete },
+                    function (data) {
+                        // Successful requests get here
+                        // Update the page elements
+                        if (data.ItemCount == 0) {
+                            $('#row-' + data.DeleteId).fadeOut('slow');
+                        } else {
+                            $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                        }
+                        $('#cart-total').text(data.CartTotal);
+                        $('#update-message').text(data.Message);
+                        $('#cart-status').text('Cart (' + data.CartCount + ')');
+                    });
+                }
+            });
     });
 </script>
 <h3>
@@ -68,13 +89,19 @@ type="text/javascript"></script>
                 </td>
                 <td>
                     <a href="#" class="RemoveLink"
-    data-id="@item.RecordId">Usuń z koszyka</a>
+    data-id="@item.RecordId">Usuń</a>
+                </td>
+                <td>
+                    <a href="#" class="AddLink"
+    data-id="@item.RecordId">Dodaj</a>
                 </td>
             </tr>
         }
         <tr>
             <td>
                 W sumie:
+            </td>
+            <td>
             </td>
             <td>
             </td>

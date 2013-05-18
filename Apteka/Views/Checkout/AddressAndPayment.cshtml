@@ -75,19 +75,18 @@
     </table>
     <br />
     <h3>Adres wysyłki:</h3>
-    <span>Imie: </span> @Model.User.Imie<br />
-    <span>Nazwisko: </span> @Model.User.Nazwisko<br />
-    <span>Ulica: </span> @Model.User.Ulica<br />
-    <span>Numer domu/mieszkania: </span> <p>@Model.User.NumerDomu / @Model.User.NumerMieszkania</p> <br />
-    <span>Kod pocztowy: </span> @Model.User.KodPocztowy<br />
-    <span>Miejscowość: </span> @Model.User.Miasto<br />
-    <span>Adres email: </span> @Model.User.email<br />
+    <span>Imie: </span> <b>@Model.User.Imie</b><br />
+    <span>Nazwisko: </span> <b>@Model.User.Nazwisko</b><br />
+    <span>Adres: </span> <b><p>@Model.User.Ulica @Model.User.NumerDomu / @Model.User.NumerMieszkania</p></b>
+    <span>Kod pocztowy: </span> <b>@Model.User.KodPocztowy</b><br />
+    <span>Miejscowość: </span> <b>@Model.User.Miasto</b><br />
+    <span>Adres email: </span> <b>@Model.User.email</b><br />
     @Html.CheckBox("otherAddress")
     @Html.Label("Inny adres do wysyłki")
     <br />
     <h3>Sposób dostawy*:</h3>
-    using (Html.BeginForm())
-    {
+        using (Html.BeginForm())
+        {
     <table>
         <tr>
             <td>@Html.RadioButton("transportOption", "0", true, new { @class = "transportOption" }) Odbiór osobisty: <b>0 PLN</b></td>
@@ -128,7 +127,7 @@
     <p><small>** Przy zakupach w kilku różnych sklepach, cena za transport/płatność jest większa (równa wielokrotności wybranych sklepów).</small></p>
     <br />
     <input type="submit" value="Zatwierdzam" />
-    }
+        }
 }
 else
 {

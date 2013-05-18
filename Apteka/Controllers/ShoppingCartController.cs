@@ -53,7 +53,7 @@ namespace Apteka.Controllers
 
             // Get the name of the album to display confirmation
             string albumName = storeDB.t_CartItems
-                .Single(item => item.RecordId == id).ProduktId.ToString();//ma byc name
+                .Single(item => item.RecordId == id).t_produkty.t_leki.nazwa_char;
 
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);
@@ -62,13 +62,60 @@ namespace Apteka.Controllers
             var results = new ShoppingCartRemoveViewModel
             {
                 Message = Server.HtmlEncode(albumName) +
-                    " has been removed from your shopping cart.",
+                    " usunięto z koszyka.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
                 ItemCount = itemCount,
                 DeleteId = id
             };
             return Json(results);
+        }
+
+        //
+        // AJAX: /ShoppingCart/RemoveFromCart/5
+        [HttpPost]
+        public ActionResult AddToCartP(int id)
+        {
+            // Remove the item from the cart
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+
+            // Get the name of the album to display confirmation
+            var produkt = storeDB.t_CartItems
+                .Single(item => item.RecordId == id).t_produkty;
+
+            int itemCount = cart.GetCount();
+
+            if (itemCount < produkt.ilosc)
+            {
+                cart.AddToCart(produkt);
+                itemCount++;
+
+                // Display the confirmation message
+                var results = new ShoppingCartRemoveViewModel
+                {
+                    Message = Server.HtmlEncode(produkt.t_leki.nazwa_char) +
+                        " dodano do koszyka.",
+                    CartTotal = cart.GetTotal(),
+                    CartCount = cart.GetCount(),
+                    ItemCount = itemCount,
+                    DeleteId = id
+                };
+                return Json(results);
+            }
+            else
+            {
+                // Display the confirmation message
+                var results = new ShoppingCartRemoveViewModel
+                {
+                    Message = Server.HtmlEncode(produkt.t_leki.nazwa_char) +
+                        " brak produktu!!!",
+                    CartTotal = cart.GetTotal(),
+                    CartCount = cart.GetCount(),
+                    ItemCount = itemCount,
+                    DeleteId = id
+                };
+                return Json(results);
+            }  
         }
         //
         // GET: /ShoppingCart/CartSummary

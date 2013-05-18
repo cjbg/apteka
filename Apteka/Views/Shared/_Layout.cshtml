@@ -30,8 +30,8 @@
         <div id="templatemo_menu">
         
         	<div id="search_box">
-              <form action="#" method="get">
-                    <input type="text" value="" name="username" size="10" id="input_field" title="usernmae" />
+              <form action="/Category" method="post">
+                    <input type="text" value="" name="SearchString" size="10" id="input_field" title="nazwa" />
                     <input type="submit" name="login" value="Szukaj" alt="login" id="submit_btn" title="Login" />
               </form>
             </div>  
@@ -40,7 +40,10 @@
                 <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
                 <li>@Html.ActionLink("Promocje", "Index", "Discounts")</li>
                 <li>@Html.ActionLink("FAQ", "Index", "FAQ")</li>
-                <li>@Html.ActionLink("Twoje Konto", "Index", "Home")</li>
+                @if (!string.IsNullOrEmpty(User.Identity.Name))
+                {
+                    <li>@Html.ActionLink("Twoje Konto", "EdycjaDanych", "Account")</li>
+                }
                 <li>@Html.ActionLink("Regulamin", "Index", "Rules")</li>
                 <li>@Html.ActionLink("Kontakt", "About", "Home")</li>
                     

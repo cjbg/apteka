@@ -474,19 +474,19 @@ img { margin: 0px; padding: 0px; border: none; }
 	background: url(/Content/themes/base/images/templatemo_shopping_cart.png) bottom right no-repeat;
 }
 
-#content_middle .miniatura 
+#content_middle .category .miniatura 
 {
     width: 40px;
     height: 40px;
     border-style: ridge;
 }
 
-table tbody tr:nth-child(2n) {
+.category table tbody tr:nth-child(2n) {
   background-color: #ffb167;
   color: Black;
 }
 
-#content_middle #imp
+#content_middle .category #imp
 {
   border: 1px solid #777777;
   background: #fd820d;
@@ -499,7 +499,7 @@ table tbody tr:nth-child(2n) {
   -webkit-border-radius: 4px;
 }
 
-#content_middle #imp2
+#content_middle .category #imp2
 {
   border: 1px solid #777777;
   background: white;
@@ -510,19 +510,19 @@ table tbody tr:nth-child(2n) {
   -webkit-border-radius: 4px;
 }
 
-#content_middle h2
+#content_middle .category h2
 {
     color: #fd820d;
     font: bold 24px 'Trebuchet MS';
 }
 
-#content_middle p 
+#content_middle .category p 
 {
     color: Black;
     font: bold 15px 'Trebuchet MS';
 }
 
-#content_middle td a 
+#content_middle .category td a 
 {
     color: Black;
     font: bold 12px 'Trebuchet MS';

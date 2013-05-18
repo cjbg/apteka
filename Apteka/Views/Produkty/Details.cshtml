@@ -13,8 +13,12 @@
 
     <span>Nazwa leku: </span> <b>@Model.t_leki.nazwa_char</b><br />
     <span>Cena: </span> <b>@Model.cena</b><br />
+    <span>Opakowanie: </span> <b>@Model.t_leki.opak_char</b><br />
     <span>Nazwa sklepu:</span> <b>@Model.t_sklepy.Nazwa</b><br />
     <span>Dostępna ilość:</span> <b>@Model.ilosc</b><br />
+    <br />
+    @Html.ActionLink("Dodaj do koszyka", "AddToCart", "ShoppingCart", new { id = Model.Id, returnUrl = Request.Url }, new { @class = "addtocard" })
+    <br />
 </fieldset>
 <p>
     @if (Session["Admin"] == "Admin")

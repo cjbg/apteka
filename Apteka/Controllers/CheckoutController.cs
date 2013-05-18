@@ -7,6 +7,8 @@ using Apteka.ViewModels;
 using Apteka.Logic;
 using System.Data;
 using System.Xml;
+using System.Net.Mail;
+using System.Net;
 
 namespace Apteka.Controllers
 {
@@ -137,12 +139,30 @@ namespace Apteka.Controllers
                 NewZam.user_id = userAddr.Id;
                 db.Entry(NewZam).State = EntityState.Added;
                 db.SaveChanges();
+
+                //wyslac jakiegos maila do kupujacego
+                var usr = db.t_users.First(a => a.Login == User.Identity.Name);
+                MailMessage mail = new MailMessage();
+                NetworkCredential basicCredential =
+                new NetworkCredential("aptegropl", "1q2w3e4r%T");
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("aptegropl@gmail.com");
+                mail.To.Add(usr.email);
+                mail.Subject = "Potwierdzenie zakupu";
+                mail.IsBodyHtml = true;
+                mail.Body = "Nazwa sklepu: "+ db.t_sklepy.Where(x=>x.Id==s).Single().Nazwa
+                    +". Status zamówienia: <b>"+ NewZam.status+"</b>";
+
+                SmtpServer.Host = "smtp.gmail.com";
+                SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = basicCredential;
+                SmtpServer.Send(mail);
             }
 
             //wyczyscic koszyk
             cart.EmptyCart();
 
-            //wyslac jakiegos maila do kupujacego
             return RedirectToAction("Index","Home");
         }
 

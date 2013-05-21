@@ -110,12 +110,14 @@ namespace Apteka.Controllers
                 }
                 //parsowanie do xmla
                 XmlDocument doc = new XmlDocument();
+                XmlDeclaration declaration = doc.CreateXmlDeclaration("1.0", "ISO-8859-1", null);
+                doc.AppendChild(declaration);
                 //produkty (xml)
                 XmlElement el = (XmlElement)doc.AppendChild(doc.CreateElement("Produkty"));
                 
                 foreach (var pp in prodByShop)
                 {
-                    XmlElement elP = (XmlElement)el.AppendChild(doc.CreateElement("ID:"+Convert.ToString(pp.ProduktId)));
+                    XmlElement elP = (XmlElement)el.AppendChild(doc.CreateElement("IdProduktu"+Convert.ToString(pp.ProduktId)));
                     elP.AppendChild(doc.CreateElement("Nazwa")).InnerText = pp.t_produkty.t_leki.nazwa_char;
                     elP.AppendChild(doc.CreateElement("Ilosc")).InnerText = Convert.ToString(pp.Count);
                     elP.AppendChild(doc.CreateElement("Cena")).InnerText = Convert.ToString(pp.t_produkty.cena);
@@ -133,7 +135,7 @@ namespace Apteka.Controllers
                 Console.WriteLine(doc.OuterXml);
                 //dodac zamowienie (user_id,sklep_id,xml,status)
                 t_zamowienia NewZam = new t_zamowienia();
-                NewZam.lek_data = doc.OuterXml;
+                NewZam.lek_data = doc.InnerXml;
                 NewZam.sklep_id = s;
                 NewZam.status = "nowe";
                 NewZam.user_id = userAddr.Id;

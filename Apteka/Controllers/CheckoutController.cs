@@ -154,7 +154,7 @@ namespace Apteka.Controllers
                     +". Status zamówienia: <b>"+ NewZam.status+"</b>";
 
                 SmtpServer.Host = "smtp.gmail.com";
-                SmtpServer.EnableSsl = true;
+                //SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = basicCredential;
                 SmtpServer.Send(mail);

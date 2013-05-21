@@ -222,7 +222,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="int" Nullable="false" />
-          <Property Name="lek_data" Type="xml" />
+          <Property Name="lek_data" Type="varchar(max)" />
           <Property Name="sklep_id" Type="int" Nullable="false" />
           <Property Name="status" Type="varchar" MaxLength="50" />
         </EntityType>

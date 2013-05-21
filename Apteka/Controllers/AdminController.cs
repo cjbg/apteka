@@ -17,6 +17,7 @@ namespace Apteka.Controllers
         // GET: /Admin/
 
         private db_lekiContext db = new db_lekiContext();
+        private static string CashForLekData;
 
         public ActionResult Index()
         {
@@ -30,9 +31,11 @@ namespace Apteka.Controllers
             return View(zam.ToList());
         }
 
+
         public ActionResult ZmianaStatusu(int id)
         {
-            var zam = db.t_zamowienia.Find(id);            
+            var zam = db.t_zamowienia.Find(id);
+            CashForLekData = zam.lek_data;
             ViewData["changeDuration"] = new SelectList(Status.getDurationListDD, "Key", "Value", zam.Id);
             return View(zam);
         }
@@ -48,8 +51,10 @@ namespace Apteka.Controllers
                 var usr = db.t_users.Find(zam.user_id);
                 var skl = db.t_sklepy.Find(zam.sklep_id);
 
+                zam.lek_data = CashForLekData;
+
                 zam.t_users = usr;
-                zam.t_sklepy = skl;
+                zam.t_sklepy = skl;                
 
                 var s = Status.getDurationListDD;
                 var a = ViewData["changeduration"];

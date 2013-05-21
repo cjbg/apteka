@@ -58,6 +58,14 @@ namespace Apteka.Controllers
                 case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x=>x.ilosc).ToList();
+                    break;                                
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;
+                case "internaz": lista = lista.OrderBy(x => x.t_leki.t_informacje.t_inter.nazwa_char).ToList();
+                    break;
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
                     break;
             }
 
@@ -147,6 +155,14 @@ namespace Apteka.Controllers
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
                     break;
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;
+                case "internaz": lista = lista.OrderBy(x => x.t_leki.t_informacje.t_inter.nazwa_char).ToList();
+                    break;
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
+                    break;
             }
 
             return View("index", lista);
@@ -190,6 +206,14 @@ namespace Apteka.Controllers
                 case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;
+                case "internaz": lista = lista.OrderBy(x => x.t_leki.t_informacje.t_inter.nazwa_char).ToList();
+                    break;
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
                     break;
             }
 
@@ -235,6 +259,14 @@ namespace Apteka.Controllers
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
                     break;
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;
+                case "internaz": lista = lista.OrderBy(x => x.t_leki.t_informacje.t_inter.nazwa_char).ToList();
+                    break;
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
+                    break;
             }
 
             return View("index", lista);
@@ -279,6 +311,14 @@ namespace Apteka.Controllers
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
                     break;
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;
+                case "internaz": lista = lista.OrderBy(x => x.t_leki.t_informacje.t_inter.nazwa_char).ToList();
+                    break;
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
+                    break;
             }
 
             return View("index", lista);
@@ -314,6 +354,14 @@ namespace Apteka.Controllers
                 case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;
+                case "internaz": lista = lista.OrderBy(x => x.t_leki.t_informacje.t_inter.nazwa_char).ToList();
+                    break;
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
                     break;
             }
 
@@ -351,6 +399,12 @@ namespace Apteka.Controllers
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
                     break;
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;                
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
+                    break;
             }
 
             return View("index", lista);
@@ -386,6 +440,14 @@ namespace Apteka.Controllers
                 case "ilosc": lista = lista.OrderBy(x => x.ilosc).ToList();
                     break;
                 case "cenailosc": lista = lista.OrderBy(x => x.cena).ThenBy(x => x.ilosc).ToList();
+                    break;
+                case "sklep": lista = lista.OrderBy(x => x.t_sklepy.Nazwa).ToList();
+                    break;
+                case "producent": lista = lista.OrderBy(x => x.t_leki.t_producenci.nazwa_char).ToList();
+                    break;
+                case "internaz": lista = lista.OrderBy(x => x.t_leki.t_informacje.t_inter.nazwa_char).ToList();
+                    break;
+                case "nazwa": lista = lista.OrderBy(x => x.t_leki.nazwa_char).ToList();
                     break;
             }
 

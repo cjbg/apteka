@@ -21,9 +21,16 @@
     <br />
 </fieldset>
 <p>
-    @if (Session["Admin"] == "Admin")
+@if (Request.IsAuthenticated)
+{
+    if (Session["Admin"] == "Admin")
     {
         @Html.ActionLink("Edytuj", "Edit", new { id=Model.Id }) <p>|</p>
+        @Html.ActionLink("Powrót do danych apteki", "Index")
     }
-    @Html.ActionLink("Powrót", "Index")
+}
+else
+{
+    @Html.ActionLink("Powrót", "Index", "Category")
+}
 </p>

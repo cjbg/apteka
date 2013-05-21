@@ -17,8 +17,7 @@
         <th>
             @Html.ActionLink("Nazwa", (string)ViewBag.ActionName, new { sortModel = "nazwa" }, new { @class = "sortlink" })
         </th>
-        <th>
-            @Html.ActionLink("Opakowanie", (string)ViewBag.ActionName, new { sortModel = "opakowanie" }, new { @class = "sortlink" })
+        <th>            
         </th>
         <th>
             @Html.ActionLink("Sklep", (string)ViewBag.ActionName, new { sortModel = "sklep" }, new { @class = "sortlink" })
@@ -34,13 +33,10 @@
         <th>
             @Html.ActionLink("Producent", (string)ViewBag.ActionName, new { sortModel = "producent" }, new { @class = "sortlink" })
         </th>                
-        }
-        @if (ViewBag.ActionName == "Internaz")
-        {
-        <th>
-            @Html.ActionLink("Nazwa międzynarodowa", (string)ViewBag.ActionName, new { sortModel = "internaz" }, new { @class = "sortlink" })
-        </th>                
         }        
+        <th>
+            @Html.ActionLink("Cena i ilość", (string)ViewBag.ActionName, new { sortModel = "cenailosc" }, new { @class = "sortlink" })
+        </th>               
     </tr>
 
     @foreach (var item in Model)
